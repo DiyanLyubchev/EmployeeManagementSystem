@@ -1,0 +1,45 @@
+﻿@model IEnumerable<OfficeDto>
+@using EmployeeManagementSystemDataService.Models
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <body>
+        <button class="btn alert-success" onclick="window.location.href='@Url.Action("Add", "Office")'">
+            Add New
+        </button>
+        <br />
+        <br />
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Company name</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Street</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var office in Model)
+                {
+                    <tr>
+                        <td>@office.CompanyName </td>
+                        <td>@office.CountryName</td>
+                        <td>@office.CityName</td>
+                        <td>@office.Street, @office.StreetNumber </td>
+                        <td>
+
+                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Office", office)'">
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>
+
+
+
+
+

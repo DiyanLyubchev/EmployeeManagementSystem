@@ -1,0 +1,49 @@
+﻿@model OfficeViewModel
+@using EmployeeManagementSystemDataService.Models
+@{
+    ViewData["Title"] = "Add Office";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body>
+    <form id="account" method="post">
+        <input asp-for="Id" hidden />
+
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Street"></label>
+            <input asp-for="Street" class="form-control" required />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StreetNumber"></label>
+            <input asp-for="StreetNumber" class="form-control" required />
+            <span asp-validation-for="StreetNumber" class="text-danger"></span>
+        </div>
+
+        <select asp-for="CompanyId"
+                asp-items="@(new SelectList(Model.AllCompanies,"Id","Name"))">
+            <option>Select Company</option>
+        </select>
+
+        <select asp-for="CountryId"
+                asp-items="@(new SelectList(Model.AllCountries,"Id","Name"))"
+                onchange="populateCities(event.srcElement.value, 'CityId')">
+            <option>Select Country</option>
+        </select>
+
+        <select asp-for="CityId"
+                asp-items="@(new SelectList(Model.CitiesByCountry,"Id","Name"))">
+            <option>Select City</option>
+        </select>
+        <br />
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn alert-success">Save</button>
+        </div>
+    </form>
+</body>
+
+

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Company>
+@using EmployeeManagementSystemData.Models.Companies
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <body>
+        <button class="btn alert-success" onclick="window.location.href='@Url.Action("Add", "Company")'">
+            Add New
+        </button>
+        <br />
+        <br />
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Company name</th>
+                    <th scope="col">Creation Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var company in Model)
+                {
+                    <tr>
+                        <td>@company.Name </td>
+                        <td>@company.CreationDate.ToShortDateString()</td>
+                        <td>
+                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>
+
+
+
+
