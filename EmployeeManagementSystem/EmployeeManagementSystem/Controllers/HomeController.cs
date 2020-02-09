@@ -40,8 +40,6 @@ namespace EmployeeManagementSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOffices(int companyId)
         {
-            var id = companyId;
-
             var office = await this.officeService.GetByCompanyAsync(companyId);
 
             return new JsonResult(office);

@@ -39,7 +39,7 @@ namespace EmployeeManagementSystemDataService.Companies
 
         public async Task<IEnumerable<OfficeDto>> GetByCompanyAsync(int companyId)
         {
-           var test = await this.context.Offices
+           return await this.context.Offices
                 .Include(company => company.Company)
                 .Where(office => office.CompanyId == companyId)
                 .Select(office => new OfficeDto
@@ -52,10 +52,6 @@ namespace EmployeeManagementSystemDataService.Companies
                     CompanyName = office.Company.Name,
                     CompanyId = office.CompanyId,
                 }).ToListAsync();
-
-            var stop = 9;
-
-            return test;
         }
 
         public async Task<IEnumerable<OfficeDto>> GetAllAsync()
@@ -112,6 +108,16 @@ namespace EmployeeManagementSystemDataService.Companies
             office.CompanyId = dto.CompanyId;
             office.CityId = dto.CityId;
 
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(OfficeDto dto)
+        {
+            var office = await this.context.Offices
+               .Where(id => id.Id == dto.Id)
+               .FirstAsync();
+
+            this.context.Offices.Remove(office);
             await this.context.SaveChangesAsync();
         }
     }
