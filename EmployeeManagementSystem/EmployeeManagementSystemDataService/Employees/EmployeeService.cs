@@ -3,7 +3,6 @@ using EmployeeManagementSystemData.Models.Employees;
 using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.Models;
 using EmployeeManagementSystemDataService.Util;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,28 +21,29 @@ namespace EmployeeManagementSystemDataService.Employees
         }
 
 
-        public async Task<EmployeeDto> GetUserAsync(int employeeId)
+        public async Task<EmployeeDto> GetEmployeeAsync(int employeeId)
         {
             var employee = await this.context.Employees
-                .Include(c => c.Company)
-                .Include(o => o.Office)
+                .Include(company => company.Company)
+                .Include(office => office.Office)
+                .ThenInclude(city => city.City)
+                .ThenInclude(country => country.Country)
                 .FirstAsync(empId => empId.Id == employeeId);
+
 
             return new EmployeeDto
             {
-                Id = employee.Id,
+                Id = employeeId,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
                 ExperienceEmployeeId = employee.ExperienceEmployeeId,
                 VacationDays = employee.VacationDays,
                 Salary = employee.Salary,
-                CompanyName = employee.Company.Name,
                 CompanyId = employee.CompanyId,
-                OfficeId = employee.OfficeId,
+                CompanyName = employee.Company.Name,
+                CountryId = employee.Office.City.CountryId,
                 CityName = employee.Office.City.Name,
                 CountryName = employee.Office.City.Country.Name,
-                CountryId = employee.Office.City.Country.Id
-
             };
         }
 
@@ -59,9 +59,13 @@ namespace EmployeeManagementSystemDataService.Employees
                 .Where(officeId => officeId.Id == dto.OfficeId)
                 .SingleOrDefaultAsync();
 
+            ValidatorOffice.ValidatorOffices(office);
+
             var company = await this.context.Companies
                 .Where(companyId => companyId.Id == dto.CompanyId)
                 .SingleOrDefaultAsync();
+
+            ValidatorCompany.ValidateCompanyIfNotExistExist(company);
 
             var employee = new Employee
             {
@@ -91,6 +95,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 LastName = employee.LastName,
                 ExperienceEmployeeId = employee.ExperienceEmployeeId,
                 VacationDays = employee.VacationDays,
+                StartingDate = employee.StartingDate,
                 Salary = employee.Salary,
                 CompanyId = employee.CompanyId,
                 CompanyName = employee.Company.Name,
@@ -99,6 +104,25 @@ namespace EmployeeManagementSystemDataService.Employees
                 CountryName = employee.Office.City.Country.Name,
                 CountryId = employee.Office.City.Country.Id
             }).ToListAsync();
+        }
+
+
+        public async Task EditAsync(EmployeeDto dto)
+        {
+            ValidationEmployee.ValidationEmployeeFirstNameLength(dto.FirstName);
+            ValidationEmployee.ValidationEmployeeLastNameLength(dto.LastName);
+
+            var employee = await this.context.Employees.FindAsync(dto.Id);
+
+            employee.FirstName = dto.FirstName;
+            employee.LastName = dto.LastName;
+            employee.ExperienceEmployeeId = dto.ExperienceEmployeeId;
+            employee.Salary = dto.Salary;
+            employee.VacationDays = dto.VacationDays;
+
+
+            await this.context.SaveChangesAsync();
+
         }
     }
 }

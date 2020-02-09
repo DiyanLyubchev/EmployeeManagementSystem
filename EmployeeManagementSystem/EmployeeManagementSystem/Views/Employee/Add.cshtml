@@ -13,13 +13,13 @@
 
         <div class="form-group">
             <label asp-for="FirstName"></label>
-            <input asp-for="FirstName" class="form-control" required />
+            <input asp-for="FirstName" class="form-control" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="LastName"></label>
-            <input asp-for="LastName" class="form-control" required />
+            <input asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
@@ -33,12 +33,12 @@
         </div>
         <div class="form-group">
             <label asp-for="VacationDays"></label>
-            <input asp-for="VacationDays" class="form-control" required />
+            <input asp-for="VacationDays" class="form-control"  />
             <span asp-validation-for="VacationDays" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Salary"></label>
-            <input asp-for="Salary" class="form-control" required />
+            <input asp-for="Salary" class="form-control"  />
             <span asp-validation-for="Salary" class="text-danger"></span>
         </div>
         <select asp-for="OfficeId"
@@ -66,6 +66,9 @@
         <br />
         <div class="form-group">
             <button type="submit" class="btn alert-success">Save</button>
+            <strong>
+                <a style="color:mediumseagreen" href="javascript:history.go(-1)" title="Go to previous page" class="goback">Go back</a>
+            </strong>
         </div>
     </form>
 </body>

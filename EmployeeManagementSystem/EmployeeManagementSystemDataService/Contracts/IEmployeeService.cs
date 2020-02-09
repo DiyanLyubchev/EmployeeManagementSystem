@@ -12,6 +12,8 @@ namespace EmployeeManagementSystemDataService.Contracts
 
         Task<IEnumerable<EmployeeDto>> GetAllAsync();
 
-        Task<EmployeeDto> GetUserAsync(int id);
+        Task<EmployeeDto> GetEmployeeAsync(int id);
+
+        Task EditAsync(EmployeeDto dto);
     }
 }

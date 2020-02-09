@@ -25,3 +25,19 @@ function populateOffices(officeId, targetSelectId) {
             select.html(options);
         });
 }
+
+function onBack() {
+    href = "javascript:history.go(-1)";
+}
+
+function AddEmployee() {
+    window.location.href = "/Employee/Add";
+}
+
+function AddCompany() {
+    window.location.href = "/Company/Add";
+}
+
+function AddOffice() {
+    window.location.href = "/Office/Add";
+}

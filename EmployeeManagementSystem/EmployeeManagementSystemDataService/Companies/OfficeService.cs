@@ -86,7 +86,7 @@ namespace EmployeeManagementSystemDataService.Companies
             return true;
         }
 
-        public async Task<bool> EditAsync(OfficeDto dto)
+        public async Task EditAsync(OfficeDto dto)
         {
             ValidatorOffice.ValidatorAddOfficeIfIdNotExist(dto.Id);
 
@@ -108,8 +108,6 @@ namespace EmployeeManagementSystemDataService.Companies
             office.CityId = dto.CityId;
 
             await this.context.SaveChangesAsync();
-            return true;
-
         }
     }
 }

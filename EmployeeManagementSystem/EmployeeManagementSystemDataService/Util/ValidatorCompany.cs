@@ -31,5 +31,15 @@ namespace EmployeeManagementSystemDataService.Util
 
             return true;
         }
+
+        public static bool ValidateCompanyIfNotExistExist(Company company)
+        {
+            if (company != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

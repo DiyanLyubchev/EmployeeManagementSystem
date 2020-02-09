@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
     <body>
-        <button class="btn alert-success" onclick="window.location.href='@Url.Action("Add", "Office")'">
+        <button class="btn alert-success" onclick="AddOffice()">
             Add New
         </button>
         <br />
@@ -37,6 +37,9 @@
                 }
             </tbody>
         </table>
+        <strong>
+            <a style="color:mediumseagreen" href="javascript:history.go(-1)" title="Go to previous page" class="goback">Go back</a>
+        </strong>
     </body>
 
 
