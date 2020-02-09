@@ -39,6 +39,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 ExperienceEmployeeId = employee.ExperienceEmployeeId,
                 VacationDays = employee.VacationDays,
                 Salary = employee.Salary,
+                IsDeleted = employee.IsDeleted,
                 CompanyId = employee.CompanyId,
                 CompanyName = employee.Company.Name,
                 CountryId = employee.Office.City.CountryId,
@@ -97,6 +98,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 VacationDays = employee.VacationDays,
                 StartingDate = employee.StartingDate,
                 Salary = employee.Salary,
+                IsDeleted =employee.IsDeleted,
                 CompanyId = employee.CompanyId,
                 CompanyName = employee.Company.Name,
                 OfficeId = employee.OfficeId,
@@ -136,11 +138,10 @@ namespace EmployeeManagementSystemDataService.Employees
         public async Task DeleteEmployeeAsync(EmployeeDto dto)
         {
             var employee = await this.context.Employees
-                .Include(company => company.Company)
-                .Include(office => office.Office)
-                .FirstAsync();
-
-            this.context.Employees.Remove(employee);
+                .Where(id => id.Id == dto.Id)
+                .FirstOrDefaultAsync();
+            employee.IsDeleted = true;
+            
             await this.context.SaveChangesAsync();
         }
     }

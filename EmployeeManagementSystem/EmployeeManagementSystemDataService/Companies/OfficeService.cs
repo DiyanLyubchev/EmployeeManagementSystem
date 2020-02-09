@@ -22,9 +22,12 @@ namespace EmployeeManagementSystemDataService.Companies
         public async Task<OfficeDto> GetAsync(int id)
         {
             var office = await this.context.Offices
-                .Include(c => c.City).FirstAsync(office => office.Id == id);
+                .Include(c => c.City)
+                .Where(office => office.Id == id && office.IsDeleted == false)
+                .FirstAsync();
 
             ValidatorOffice.ValidatorOffices(office);
+
 
             return new OfficeDto
             {
@@ -33,30 +36,37 @@ namespace EmployeeManagementSystemDataService.Companies
                 StreetNumber = office.StreetNumber,
                 CityId = office.CityId,
                 CountryId = office.City.CountryId,
-                CompanyId = office.CompanyId
+                CompanyId = office.CompanyId,
+                IsDeleted = office.IsDeleted
+
             };
         }
 
         public async Task<IEnumerable<OfficeDto>> GetByCompanyAsync(int companyId)
         {
-           return await this.context.Offices
-                .Include(company => company.Company)
-                .Where(office => office.CompanyId == companyId)
-                .Select(office => new OfficeDto
-                {
-                    Id = office.Id,
-                    Street = office.Street,
-                    StreetNumber = office.StreetNumber,
-                    CityId = office.CityId,
-                    CityName = office.City.Name,
-                    CompanyName = office.Company.Name,
-                    CompanyId = office.CompanyId,
-                }).ToListAsync();
+            return await this.context.Offices
+                 .Include(company => company.Company)
+                 .Where(office => office.CompanyId == companyId && office.IsDeleted == false)
+                 .Select(office => new OfficeDto
+                 {
+                     Id = office.Id,
+                     Street = office.Street,
+                     StreetNumber = office.StreetNumber,
+                     CityId = office.CityId,
+                     CityName = office.City.Name,
+                     CompanyName = office.Company.Name,
+                     CompanyId = office.CompanyId,
+                     IsDeleted = office.IsDeleted
+                 }).ToListAsync();
         }
 
         public async Task<IEnumerable<OfficeDto>> GetAllAsync()
         {
-            return await this.context.Offices.Select(office => new OfficeDto
+
+            
+
+            return await this.context.Offices.Where(isDeleted => isDeleted.IsDeleted == false)
+                .Select(office => new OfficeDto
             {
                 Id = office.Id,
                 Street = office.Street,
@@ -65,7 +75,9 @@ namespace EmployeeManagementSystemDataService.Companies
                 CompanyId = office.CompanyId,
                 CompanyName = office.Company.Name,
                 CountryName = office.City.Country.Name,
-                CityName = office.City.Name
+                CityName = office.City.Name,
+                IsDeleted = office.IsDeleted
+
             }).ToListAsync();
         }
 
@@ -114,10 +126,12 @@ namespace EmployeeManagementSystemDataService.Companies
         public async Task DeleteAsync(OfficeDto dto)
         {
             var office = await this.context.Offices
+                .Include(empl => empl.Employees)
                .Where(id => id.Id == dto.Id)
                .FirstAsync();
 
-            this.context.Offices.Remove(office);
+            office.IsDeleted = true;
+          
             await this.context.SaveChangesAsync();
         }
     }

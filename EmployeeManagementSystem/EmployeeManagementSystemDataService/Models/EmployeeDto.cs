@@ -29,5 +29,7 @@ namespace EmployeeManagementSystemDataService.Models
 
         public int? OfficeId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
     }
 }

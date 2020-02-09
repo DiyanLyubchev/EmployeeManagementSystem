@@ -9,6 +9,8 @@ namespace EmployeeManagementSystemData.Models.Companies
     {
         public string Name { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public DateTime CreationDate { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
