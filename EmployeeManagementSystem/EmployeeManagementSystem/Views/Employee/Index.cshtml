@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@using EmployeeManagementSystemData.Common
 <body>
     <button class="btn alert-success" onclick="window.location.href='@Url.Action("Add", "Employee")'">
         Add New
@@ -20,7 +20,6 @@
                 <th scope="col">Vacation days</th>
                 <th scope="col">Salary</th>
                 <th scope="col">Company</th>
-                <th scope="col">Vacation days</th>
                 <th scope="col">Location</th>
             </tr>
         </thead>
@@ -30,13 +29,12 @@
                 <tr>
                     <td>@em.FirstName </td>
                     <td>@em.LastName</td>
-                    <td>@em.ExperienceEmployeeId</td>
+                    <td>@(((ExperienceEmployeeType)em.ExperienceEmployeeId).ToString())</td>
                     <td>@em.VacationDays </td>
                     <td>@em.Salary </td>
                     <td>@em.CompanyName </td>
-                    <td>@em.CountryName, @em.CityName </td>
+                    <td>@em.CountryName, @em.CityName</td>
                     <td>
-
                         <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Employee", em)'">
                             Edit
                         </button>

@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystemDataService.CustomException;
+﻿using EmployeeManagementSystemData.Models.Companies;
+using EmployeeManagementSystemDataService.CustomException;
 using System;
 
 namespace EmployeeManagementSystemDataService.Util
@@ -19,6 +20,16 @@ namespace EmployeeManagementSystemDataService.Util
             {
                 throw new CompanyException("Incorrect company date");
             }
+        }
+
+        public static bool ValidateCompanyIfExist(Company company)
+        {
+            if (company != null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

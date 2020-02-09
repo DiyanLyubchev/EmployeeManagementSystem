@@ -21,7 +21,10 @@ namespace EmployeeManagementSystemDataService.Companies
 
         public async Task<OfficeDto> GetAsync(int id)
         {
-            var office = await this.context.Offices.Include(c => c.City).FirstAsync(office => office.Id == id);
+            var office = await this.context.Offices
+                .Include(c => c.City).FirstAsync(office => office.Id == id);
+
+            ValidatorOffice.ValidatorOffices(office);
 
             return new OfficeDto
             {
@@ -32,6 +35,22 @@ namespace EmployeeManagementSystemDataService.Companies
                 CountryId = office.City.CountryId,
                 CompanyId = office.CompanyId
             };
+        }
+
+        public async Task<IEnumerable<OfficeDto>> GetByOfficeAsync(int officeId)
+        {
+            return await this.context.Offices
+                .Where(office => office.Id == officeId)
+                .Select(office => new OfficeDto
+                {
+                    Id = office.Id,
+                    Street = office.Street,
+                    StreetNumber = office.StreetNumber,
+                    CityId = office.CityId,
+                    CityName = office.City.Name,
+                    CompanyName = office.Company.Name,
+                    CompanyId = office.CompanyId,
+                }).ToListAsync();
         }
 
         public async Task<IEnumerable<OfficeDto>> GetAllAsync()

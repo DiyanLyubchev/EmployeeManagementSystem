@@ -15,18 +15,36 @@ namespace EmployeeManagementSystemDataService.Employees
     public class EmployeeService : IEmployeeService
     {
         private readonly EmployeeManagementSystemContext context;
-       
+
         public EmployeeService(EmployeeManagementSystemContext context)
         {
             this.context = context;
         }
 
-        public async Task<Employee> GetUserAsync(int id)
-        {
-            var user = await this.context.Employees
-                .FirstOrDefaultAsync(u => u.Id == id);
 
-            return user;
+        public async Task<EmployeeDto> GetUserAsync(int employeeId)
+        {
+            var employee = await this.context.Employees
+                .Include(c => c.Company)
+                .Include(o => o.Office)
+                .FirstAsync(empId => empId.Id == employeeId);
+
+            return new EmployeeDto
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                ExperienceEmployeeId = employee.ExperienceEmployeeId,
+                VacationDays = employee.VacationDays,
+                Salary = employee.Salary,
+                CompanyName = employee.Company.Name,
+                CompanyId = employee.CompanyId,
+                OfficeId = employee.OfficeId,
+                CityName = employee.Office.City.Name,
+                CountryName = employee.Office.City.Country.Name,
+                CountryId = employee.Office.City.Country.Id
+
+            };
         }
 
         public async Task<bool> AddAsync(EmployeeDto dto)
@@ -45,7 +63,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 .Where(companyId => companyId.Id == dto.CompanyId)
                 .SingleOrDefaultAsync();
 
-            var employee=  new Employee
+            var employee = new Employee
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
@@ -76,7 +94,10 @@ namespace EmployeeManagementSystemDataService.Employees
                 Salary = employee.Salary,
                 CompanyId = employee.CompanyId,
                 CompanyName = employee.Company.Name,
-                OfficeId = employee.OfficeId
+                OfficeId = employee.OfficeId,
+                CityName = employee.Office.City.Name,
+                CountryName = employee.Office.City.Country.Name,
+                CountryId = employee.Office.City.Country.Id
             }).ToListAsync();
         }
     }

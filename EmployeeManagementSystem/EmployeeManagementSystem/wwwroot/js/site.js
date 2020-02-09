@@ -13,3 +13,15 @@ function populateCities(countryId, targetSelectId) {
             select.html(options);
         });
 }
+
+function populateOffices(officeId, targetSelectId) {
+    $.getJSON(`/home/getCities?officeId=${officeId}`)
+        .then(offices => {
+            const select = $(`#${targetSelectId}`);
+            let options = '<option>Select Office</option>';
+            offices.forEach(office => {
+                options += `<option value="${office.id}">${office.street}</option>`;
+            });
+            select.html(options);
+        });
+}
