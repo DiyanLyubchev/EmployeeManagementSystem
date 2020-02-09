@@ -42,7 +42,8 @@
             <span asp-validation-for="Salary" class="text-danger"></span>
         </div>
         <select asp-for="OfficeId"
-                asp-items="@(new SelectList(Model.AllCompanies,"Id","Name"))">
+                asp-items="@(new SelectList(Model.AllCompanies,"Id","Name"))"
+                   onchange="populateOffices(event.srcElement.value, 'OfficeId')">
             <option>Select Office</option>
         </select>
 

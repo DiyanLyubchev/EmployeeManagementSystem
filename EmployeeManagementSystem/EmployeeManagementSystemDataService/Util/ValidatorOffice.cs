@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystemDataService.CustomException;
+﻿using EmployeeManagementSystemData.Models.Companies;
+using EmployeeManagementSystemDataService.CustomException;
 using EmployeeManagementSystemDataService.Models;
 
 namespace EmployeeManagementSystemDataService.Util
@@ -40,5 +41,14 @@ namespace EmployeeManagementSystemDataService.Util
 
             return true;
         }
-    }
+
+        public static void ValidatorOffices(Office office)
+        {
+            if (office == null)
+            {
+                throw new OfficeException("Office does not exist");
+            }
+        }
+    }  
 }
+

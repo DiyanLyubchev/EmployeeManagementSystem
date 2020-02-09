@@ -12,7 +12,7 @@ namespace EmployeeManagementSystemDataService.Companies
     public class CompanyService : ICompanyService
     {
         private readonly EmployeeManagementSystemContext context;
-     
+
 
         public CompanyService(EmployeeManagementSystemContext context)
         {
@@ -24,19 +24,26 @@ namespace EmployeeManagementSystemDataService.Companies
             ValidatorCompany.ValidateCompanyNameIfIsNull(dto.Name);
             ValidatorCompany.ValidateCompanyCreationDateIfIsNull(dto.CreationDate);
 
-           
-            var company = new Company
+            var company = await this.context.Companies
+                .FirstOrDefaultAsync(name => name.Name == dto.Name);
+
+            var vaidate = ValidatorCompany.ValidateCompanyIfExist(company);
+
+            if (vaidate)
             {
-                Name = dto.Name,
+                var newCompany = new Company
+                {
+                    Name = dto.Name,
 
-                CreationDate = dto.CreationDate
+                    CreationDate = dto.CreationDate
+                };
+                await this.context.Companies.AddAsync(newCompany);
+                await this.context.SaveChangesAsync();
 
-            };
+                return true;
+            }
 
-            await this.context.Companies.AddAsync(company);
-            await this.context.SaveChangesAsync();
-
-            return true;
+            return false;
         }
 
         public async Task<IEnumerable<Company>> GetAllAsync()

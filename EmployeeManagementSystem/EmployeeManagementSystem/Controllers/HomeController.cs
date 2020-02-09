@@ -14,6 +14,7 @@ namespace EmployeeManagementSystem.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICityService cityService;
+        private readonly IOfficeService officeService;
 
         public HomeController(ILogger<HomeController> logger, ICityService cityService)
         {
@@ -29,7 +30,17 @@ namespace EmployeeManagementSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCities(int countryId)
         {
-            return new JsonResult(await this.cityService.GetByCountryAsync(countryId));
+            var city = await this.cityService.GetByCountryAsync(countryId);
+
+            return new JsonResult(city);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOffices(int officeId)
+        {
+            var office = await this.officeService.GetByOfficeAsync(officeId);
+
+            return new JsonResult(office);
         }
 
         public IActionResult Privacy()

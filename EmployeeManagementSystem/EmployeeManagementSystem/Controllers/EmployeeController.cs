@@ -63,6 +63,32 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var employee = await this.service.GetUserAsync(id);
+            var officeVm = await GetEmployeeViewModelAsync(employee);
+
+            return View("Add", officeVm);
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(OfficeViewModel vm)
+        //{
+        //    var dto = new OfficeDto
+        //    {
+        //        Id = vm.Id,
+        //        Street = vm.Street,
+        //        StreetNumber = vm.StreetNumber,
+        //        CompanyId = vm.CompanyId,
+        //        CityId = vm.CityId
+        //    };
+
+        //    await this.service.EditAsync(dto);
+
+        //    return RedirectToAction("Index");
+        //}
+
 
         private async Task<EmployeViewModel> GetEmployeeViewModelAsync(EmployeeDto employee)
         {
