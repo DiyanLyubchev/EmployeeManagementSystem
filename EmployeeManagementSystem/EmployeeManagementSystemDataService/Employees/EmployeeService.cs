@@ -112,17 +112,36 @@ namespace EmployeeManagementSystemDataService.Employees
             ValidationEmployee.ValidationEmployeeFirstNameLength(dto.FirstName);
             ValidationEmployee.ValidationEmployeeLastNameLength(dto.LastName);
 
-            var employee = await this.context.Employees.FindAsync(dto.Id);
+            var employee = await this.context.Employees
+                .Include(office => office.Office)
+                .Include(company => company.Company)
+                .FirstOrDefaultAsync(empl => empl.Id == dto.Id);
+
+            var office = await this.context.Offices
+                .FindAsync(dto.OfficeId);
 
             employee.FirstName = dto.FirstName;
             employee.LastName = dto.LastName;
             employee.ExperienceEmployeeId = dto.ExperienceEmployeeId;
             employee.Salary = dto.Salary;
             employee.VacationDays = dto.VacationDays;
-
+            employee.CompanyId = dto.CompanyId;
+            employee.Company.Name = dto.CompanyName;
+            employee.OfficeId = office.Id;
+            employee.Office = office;
 
             await this.context.SaveChangesAsync();
+        }
 
+        public async Task DeleteEmployeeAsync(EmployeeDto dto)
+        {
+            var employee = await this.context.Employees
+                .Include(company => company.Company)
+                .Include(office => office.Office)
+                .FirstAsync();
+
+            this.context.Employees.Remove(employee);
+            await this.context.SaveChangesAsync();
         }
     }
 }

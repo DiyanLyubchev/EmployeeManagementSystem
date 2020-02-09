@@ -15,5 +15,7 @@ namespace EmployeeManagementSystemDataService.Contracts
         Task<EmployeeDto> GetEmployeeAsync(int id);
 
         Task EditAsync(EmployeeDto dto);
+
+        Task DeleteEmployeeAsync(EmployeeDto dto);
     }
 }

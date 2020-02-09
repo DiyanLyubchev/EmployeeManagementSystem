@@ -29,15 +29,9 @@ namespace EmployeeManagementSystemDataService.Companies
                 .Include(office => office.Offices)
                 .FirstOrDefaultAsync(name => name.Name == dto.Name);
 
-            var office = await this.context.Offices
-                .Include(company => company.Company)
-                .Where(id => id.CompanyId == company.Id)
-                .SingleAsync();
+            var validate = ValidatorCompany.ValidateCompanyIfExist(company);
 
-            var vaidate = ValidatorCompany.ValidateCompanyIfExist(company);
-            var officeExist = ValidatorOffice.ValidatorOffices(office);
-
-            if (!officeExist)
+            if (validate)
             {
                 var newCompany = new Company
                 {
@@ -73,6 +67,15 @@ namespace EmployeeManagementSystemDataService.Companies
             company.Name = dto.Name;
             company.CreationDate = dto.CreationDate;
 
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(CompanyDto dto)
+        {
+            var company = await this.context.Companies
+                .FindAsync(dto.Id);
+
+            this.context.Companies.Remove(company);
             await this.context.SaveChangesAsync();
         }
     }

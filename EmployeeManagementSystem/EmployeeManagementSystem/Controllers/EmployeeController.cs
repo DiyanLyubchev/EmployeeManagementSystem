@@ -86,13 +86,36 @@ namespace EmployeeManagementSystem.Controllers
                 CompanyName = vm.CompanyName,
                 CityName = vm.CityName,
                 CountryName = vm.CountryName,
+                OfficeId = vm.OfficeId,
+                  
             };
 
             await this.service.EditAsync(dto);
 
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(EmployeViewModel vm)
+        {
+            var dto = new EmployeeDto
+            {
+                Id = vm.Id,
+                FirstName = vm.FirstName,
+                LastName = vm.LastName,
+                ExperienceEmployeeId = vm.ExperienceEmployee,
+                VacationDays = vm.VacationDays,
+                Salary = vm.Salary,
+                CompanyName = vm.CompanyName,
+                CityName = vm.CityName,
+                CountryName = vm.CountryName,
+                OfficeId = vm.OfficeId,
 
+            };
+
+            await this.service.DeleteEmployeeAsync(dto);
+
+            return RedirectToAction("Index");
+        }
 
         private async Task<EmployeViewModel> GetEmployeeViewModelAsync(EmployeeDto employee)
         {

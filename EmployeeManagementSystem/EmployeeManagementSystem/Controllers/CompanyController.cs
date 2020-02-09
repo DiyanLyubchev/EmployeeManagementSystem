@@ -72,5 +72,20 @@ namespace EmployeeManagementSystem.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(CompanyViewModel vm)
+        {
+            var dto = new CompanyDto
+            {
+                Id = vm.Id,
+                Name = vm.Name,
+                CreationDate = vm.CreationDate
+            };
+
+            await this.service.DeleteAsync(dto);
+
+            return RedirectToAction("Index");
+        }
     }
 }
