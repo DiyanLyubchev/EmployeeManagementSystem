@@ -11,6 +11,7 @@ using EmployeeManagementSystemData.Models.Employees;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
+using EmployeeManagementSystem.Middlewares;
 
 namespace EmployeeManagementSystem
 {
@@ -74,6 +75,8 @@ namespace EmployeeManagementSystem
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<NotFoundPageMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

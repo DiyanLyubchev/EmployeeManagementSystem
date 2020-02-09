@@ -88,6 +88,22 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Delete(OfficeViewModel vm)
+        {
+            var dto = new OfficeDto
+            {
+                Id = vm.Id,
+                Street = vm.Street,
+                StreetNumber = vm.StreetNumber,
+                CompanyId = vm.CompanyId,
+                CityId = vm.CityId
+            };
+
+            await this.service.DeleteAsync(dto);
+
+            return RedirectToAction("Index");
+        }
+
         private async Task<OfficeViewModel> GetOfficeViewModelAsync(OfficeDto office)
         {
             var officeViewModel = new OfficeViewModel
