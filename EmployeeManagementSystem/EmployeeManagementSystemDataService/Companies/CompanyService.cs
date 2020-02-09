@@ -5,6 +5,7 @@ using EmployeeManagementSystemDataService.Models;
 using EmployeeManagementSystemDataService.Util;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmployeeManagementSystemDataService.Companies
@@ -25,11 +26,18 @@ namespace EmployeeManagementSystemDataService.Companies
             ValidatorCompany.ValidateCompanyCreationDateIfIsNull(dto.CreationDate);
 
             var company = await this.context.Companies
+                .Include(office => office.Offices)
                 .FirstOrDefaultAsync(name => name.Name == dto.Name);
 
-            var vaidate = ValidatorCompany.ValidateCompanyIfExist(company);
+            var office = await this.context.Offices
+                .Include(company => company.Company)
+                .Where(id => id.CompanyId == company.Id)
+                .SingleAsync();
 
-            if (vaidate)
+            var vaidate = ValidatorCompany.ValidateCompanyIfExist(company);
+            var officeExist = ValidatorOffice.ValidatorOffices(office);
+
+            if (!officeExist)
             {
                 var newCompany = new Company
                 {

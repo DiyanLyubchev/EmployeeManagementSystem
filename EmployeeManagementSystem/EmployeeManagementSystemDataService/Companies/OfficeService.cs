@@ -37,10 +37,11 @@ namespace EmployeeManagementSystemDataService.Companies
             };
         }
 
-        public async Task<IEnumerable<OfficeDto>> GetByOfficeAsync(int officeId)
+        public async Task<IEnumerable<OfficeDto>> GetByCompanyAsync(int companyId)
         {
-            return await this.context.Offices
-                .Where(office => office.Id == officeId)
+           var test = await this.context.Offices
+                .Include(company => company.Company)
+                .Where(office => office.CompanyId == companyId)
                 .Select(office => new OfficeDto
                 {
                     Id = office.Id,
@@ -51,6 +52,10 @@ namespace EmployeeManagementSystemDataService.Companies
                     CompanyName = office.Company.Name,
                     CompanyId = office.CompanyId,
                 }).ToListAsync();
+
+            var stop = 9;
+
+            return test;
         }
 
         public async Task<IEnumerable<OfficeDto>> GetAllAsync()

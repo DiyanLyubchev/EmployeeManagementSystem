@@ -1,6 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
+﻿
 // Write your JavaScript code.
 function populateCities(countryId, targetSelectId) {
     $.getJSON(`/home/getCities?countryId=${countryId}`)
@@ -14,8 +12,8 @@ function populateCities(countryId, targetSelectId) {
         });
 }
 
-function populateOffices(officeId, targetSelectId) {
-    $.getJSON(`/home/getCities?officeId=${officeId}`)
+function populateOffices(OfficeId, targetSelectId) {
+    $.getJSON(`/home/getOffices?companyId=${OfficeId}`)
         .then(offices => {
             const select = $(`#${targetSelectId}`);
             let options = '<option>Select Office</option>';
@@ -41,3 +39,4 @@ function AddCompany() {
 function AddOffice() {
     window.location.href = "/Office/Add";
 }
+ 
