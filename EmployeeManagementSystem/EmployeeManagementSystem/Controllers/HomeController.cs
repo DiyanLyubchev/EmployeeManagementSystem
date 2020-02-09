@@ -15,11 +15,13 @@ namespace EmployeeManagementSystem.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ICityService cityService;
         private readonly IOfficeService officeService;
+       
 
-        public HomeController(ILogger<HomeController> logger, ICityService cityService)
+        public HomeController(ILogger<HomeController> logger, ICityService cityService, IOfficeService officeService)
         {
             _logger = logger;
             this.cityService = cityService;
+            this.officeService = officeService;
         }
         
         public IActionResult Index()
@@ -36,9 +38,11 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOffices(int officeId)
+        public async Task<IActionResult> GetOffices(int companyId)
         {
-            var office = await this.officeService.GetByOfficeAsync(officeId);
+            var id = companyId;
+
+            var office = await this.officeService.GetByCompanyAsync(companyId);
 
             return new JsonResult(office);
         }

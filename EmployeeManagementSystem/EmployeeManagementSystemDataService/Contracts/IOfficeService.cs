@@ -11,6 +11,6 @@ namespace EmployeeManagementSystemDataService.Contracts
         Task<IEnumerable<OfficeDto>> GetAllAsync();
         Task<bool> AddAsync(OfficeDto dto);
         Task EditAsync(OfficeDto dto);
-        Task<IEnumerable<OfficeDto>> GetByOfficeAsync(int officeId);
+        Task<IEnumerable<OfficeDto>> GetByCompanyAsync(int companyId);
     }
 }

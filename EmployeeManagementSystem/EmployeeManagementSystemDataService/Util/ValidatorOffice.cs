@@ -42,12 +42,13 @@ namespace EmployeeManagementSystemDataService.Util
             return true;
         }
 
-        public static void ValidatorOffices(Office office)
+        public static bool ValidatorOffices(Office office)
         {
             if (office == null)
             {
-                throw new OfficeException("Office does not exist");
+                return false;
             }
+            return true;
         }
     }  
 }
