@@ -4,35 +4,38 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <body>
-        <button class="btn alert-success" onclick="window.location.href='@Url.Action("Add", "Company")'">
-            Add New
-        </button>
-        <br />
-        <br />
-        <table class="table table-hover">
-            <thead>
+<body>
+    <button class="btn alert-success" onclick="AddCompany()">
+        Add New
+    </button>
+    <br />
+    <br />
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Company name</th>
+                <th scope="col">Creation Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Model)
+            {
                 <tr>
-                    <th scope="col">Company name</th>
-                    <th scope="col">Creation Date</th>
+                    <td>@company.Name </td>
+                    <td>@company.CreationDate.ToShortDateString()</td>
+                    <td>
+                        <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
+                            Edit
+                        </button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var company in Model)
-                {
-                    <tr>
-                        <td>@company.Name </td>
-                        <td>@company.CreationDate.ToShortDateString()</td>
-                        <td>
-                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
-                                Edit
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </body>
+            }
+        </tbody>
+    </table>
+    <strong>
+        <a style="color:mediumseagreen" href="javascript:history.go(-1)" title="Go to previous page" class="goback">Go back</a>
+    </strong>
+</body>
 
 
 

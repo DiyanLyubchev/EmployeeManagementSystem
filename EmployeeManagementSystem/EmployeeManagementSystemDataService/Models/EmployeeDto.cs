@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystemDataService.Models
+﻿using System;
+
+namespace EmployeeManagementSystemDataService.Models
 {
     public class EmployeeDto
     {
@@ -8,6 +10,8 @@
         public string LastName { get; set; }
 
         public decimal Salary { get; set; }
+
+        public DateTime StartingDate { get; set; }
 
         public int VacationDays { get; set; } 
 

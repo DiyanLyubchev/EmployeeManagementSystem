@@ -66,28 +66,32 @@ namespace EmployeeManagementSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var employee = await this.service.GetUserAsync(id);
-            var officeVm = await GetEmployeeViewModelAsync(employee);
+            var employee = await this.service.GetEmployeeAsync(id);
+            var employeeVm = await GetEmployeeViewModelAsync(employee);
 
-            return View("Add", officeVm);
+            return View("Add", employeeVm);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(OfficeViewModel vm)
-        //{
-        //    var dto = new OfficeDto
-        //    {
-        //        Id = vm.Id,
-        //        Street = vm.Street,
-        //        StreetNumber = vm.StreetNumber,
-        //        CompanyId = vm.CompanyId,
-        //        CityId = vm.CityId
-        //    };
+        [HttpPost]
+        public async Task<IActionResult> Edit(EmployeViewModel vm)
+        {
+            var dto = new EmployeeDto
+            {
+                Id = vm.Id,
+                FirstName = vm.FirstName,
+                LastName = vm.LastName,
+                ExperienceEmployeeId = vm.ExperienceEmployee,
+                VacationDays = vm.VacationDays,
+                Salary = vm.Salary,
+                CompanyName = vm.CompanyName,
+                CityName = vm.CityName,
+                CountryName = vm.CountryName,
+            };
 
-        //    await this.service.EditAsync(dto);
+            await this.service.EditAsync(dto);
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
 
         private async Task<EmployeViewModel> GetEmployeeViewModelAsync(EmployeeDto employee)
