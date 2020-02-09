@@ -18,6 +18,8 @@ namespace EmployeeManagementSystemData.Models.Employees
 
         public int CompanyId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public virtual Company Company { get; set; }
 
         public int? OfficeId { get; set; }

@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Company>
-@using EmployeeManagementSystemData.Models.Companies
+﻿@model IEnumerable<CompanyDto>
+@using EmployeeManagementSystemDataService.Models
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,20 +20,23 @@
         <tbody>
             @foreach (var company in Model)
             {
-            <tr>
-                <td>@company.Name </td>
-                <td>@company.CreationDate.ToShortDateString()</td>
-                <td>
-                    <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
-                        Edit
-                    </button>
-                </td>
-                <td>
-                    <button class="btn alert-success" onclick="window.location.href='@Url.Action("Delete", "Company", company)'">
-                        Delete
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    @if (company.IsDeleted == false)
+                    {
+                        <td>@company.Name </td>
+                        <td>@company.CreationDate.ToShortDateString()</td>
+                        <td>
+                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
+                                Edit
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Delete", "Company", company)'">
+                                Delete
+                            </button>
+                        </td>
+                    }
+                </tr>
             }
         </tbody>
     </table>

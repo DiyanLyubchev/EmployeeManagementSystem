@@ -8,6 +8,8 @@ namespace EmployeeManagementSystemDataService.Models
 
         public string Name { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public DateTime CreationDate { get; set; }
     }
 }

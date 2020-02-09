@@ -44,7 +44,7 @@ namespace EmployeeManagementSystemDataService.Util
 
         public static bool ValidatorOffices(Office office)
         {
-            if (office == null)
+            if (office.IsDeleted == true)
             {
                 return false;
             }
