@@ -122,17 +122,27 @@ namespace EmployeeManagementSystemDataService.Employees
             var office = await this.context.Offices
                 .FindAsync(dto.OfficeId);
 
-            employee.FirstName = dto.FirstName;
-            employee.LastName = dto.LastName;
-            employee.ExperienceEmployeeId = dto.ExperienceEmployeeId;
-            employee.Salary = dto.Salary;
-            employee.VacationDays = dto.VacationDays;
-            employee.CompanyId = dto.CompanyId;
-            employee.Company.Name = dto.CompanyName;
-            employee.OfficeId = office.Id;
-            employee.Office = office;
+            var company = await this.context.Companies
+                .Where(company => company.Id == office.CompanyId && office.IsDeleted == false)
+                .FirstAsync();
 
-            await this.context.SaveChangesAsync();
+           var validateCompany = ValidatorCompany.ValidateIfCompanyIsNull(company);
+
+            if (validateCompany)
+            {
+                employee.FirstName = dto.FirstName;
+                employee.LastName = dto.LastName;
+                employee.ExperienceEmployeeId = dto.ExperienceEmployeeId;
+                employee.Salary = dto.Salary;
+                employee.VacationDays = dto.VacationDays;
+                employee.CompanyId = company.Id;
+                employee.Company = company;
+                employee.OfficeId = office.Id;
+                employee.Office = office;
+
+                await this.context.SaveChangesAsync();
+            }
+          
         }
 
         public async Task DeleteEmployeeAsync(EmployeeDto dto)

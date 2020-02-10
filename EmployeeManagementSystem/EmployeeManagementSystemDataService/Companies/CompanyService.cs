@@ -21,10 +21,9 @@ namespace EmployeeManagementSystemDataService.Companies
             this.context = context;
         }
 
-        public async Task AddAsync(CompanyDto dto)
+        public async Task<bool> AddAsync(CompanyDto dto)
         {
             ValidatorCompany.ValidateCompanyNameIfIsNull(dto.Name);
-            ValidatorCompany.ValidateCompanyCreationDateIfIsNull(dto.CreationDate);
 
             var company = await this.context.Companies
                 .Include(office => office.Offices)
@@ -45,7 +44,10 @@ namespace EmployeeManagementSystemDataService.Companies
                 };
                 await this.context.Companies.AddAsync(newCompany);
                 await this.context.SaveChangesAsync();
+
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<CompanyDto>> GetAllAsync()
@@ -80,7 +82,6 @@ namespace EmployeeManagementSystemDataService.Companies
         public async Task EditAsync(CompanyDto dto)
         {
             ValidatorCompany.ValidateCompanyNameIfIsNull(dto.Name);
-            ValidatorCompany.ValidateCompanyCreationDateIfIsNull(dto.CreationDate);
 
             var company = await this.context.Companies.FindAsync(dto.Id);
             company.Name = dto.Name;
