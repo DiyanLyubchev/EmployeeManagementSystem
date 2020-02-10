@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemDataService.Contracts;
+using EmployeeManagementSystemDataService.CustomException;
 using EmployeeManagementSystemDataService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.Controllers
@@ -29,92 +31,146 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await this.service.GetAllAsync());
+            try
+            {
+                var employees = await this.service.GetAllAsync();
+                return View(employees);
+            }
+            catch (EmployeeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
+
+
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Add()
         {
-            var employee = await GetEmployeeViewModelAsync(new EmployeeDto());
-
-            return View(employee);
+            try
+            {
+                var employee = await GetEmployeeViewModelAsync(new EmployeeDto());
+                return View(employee);
+            }
+            catch (EmployeeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(EmployeViewModel vm)
         {
-            var dto = new EmployeeDto
+            try
             {
-                Id = vm.Id,
-                FirstName = vm.FirstName,
-                LastName = vm.LastName,
-                VacationDays = vm.VacationDays,
-                ExperienceEmployeeId = vm.ExperienceEmployee,
-                Salary = vm.Salary,
-                CompanyName = vm.CompanyName,
-                CompanyId = vm.CompanyId,
-                OfficeId = vm.OfficeId
-            };
+                var dto = new EmployeeDto
+                {
+                    Id = vm.Id,
+                    FirstName = vm.FirstName,
+                    LastName = vm.LastName,
+                    VacationDays = vm.VacationDays,
+                    ExperienceEmployeeId = vm.ExperienceEmployee,
+                    Salary = vm.Salary,
+                    CompanyName = vm.CompanyName,
+                    CompanyId = vm.CompanyId,
+                    OfficeId = vm.OfficeId
+                };
 
-            await this.service.AddAsync(dto);
+                await this.service.AddAsync(dto);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (EmployeeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
+      
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            var employee = await this.service.GetEmployeeAsync(id);
-            var employeeVm = await GetEmployeeViewModelAsync(employee);
+            try
+            {
+                var employee = await this.service.GetEmployeeAsync(id);
+                var employeeVm = await GetEmployeeViewModelAsync(employee);
 
-            return View("Add", employeeVm);
+                return View("Add", employeeVm);
+            }
+            catch (EmployeeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
+           
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(EmployeViewModel vm)
         {
-            var dto = new EmployeeDto
+            try
             {
-                Id = vm.Id,
-                FirstName = vm.FirstName,
-                LastName = vm.LastName,
-                ExperienceEmployeeId = vm.ExperienceEmployee,
-                VacationDays = vm.VacationDays,
-                Salary = vm.Salary,
-                CompanyName = vm.CompanyName,
-                CityName = vm.CityName,
-                CountryName = vm.CountryName,
-                OfficeId = vm.OfficeId,
-                  
-            };
+                var dto = new EmployeeDto
+                {
+                    Id = vm.Id,
+                    FirstName = vm.FirstName,
+                    LastName = vm.LastName,
+                    ExperienceEmployeeId = vm.ExperienceEmployee,
+                    VacationDays = vm.VacationDays,
+                    Salary = vm.Salary,
+                    CompanyName = vm.CompanyName,
+                    CityName = vm.CityName,
+                    CountryName = vm.CountryName,
+                    OfficeId = vm.OfficeId,
 
-            await this.service.EditAsync(dto);
+                };
 
-            return RedirectToAction("Index");
+                await this.service.EditAsync(dto);
+
+                return RedirectToAction("Index");
+            }
+            catch (EmployeeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
+        
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(EmployeViewModel vm)
         {
-            var dto = new EmployeeDto
+            try
             {
-                Id = vm.Id,
-                FirstName = vm.FirstName,
-                LastName = vm.LastName,
-                ExperienceEmployeeId = vm.ExperienceEmployee,
-                VacationDays = vm.VacationDays,
-                Salary = vm.Salary,
-                CompanyName = vm.CompanyName,
-                CityName = vm.CityName,
-                CountryName = vm.CountryName,
-                OfficeId = vm.OfficeId,
+                var dto = new EmployeeDto
+                {
+                    Id = vm.Id,
+                    FirstName = vm.FirstName,
+                    LastName = vm.LastName,
+                    ExperienceEmployeeId = vm.ExperienceEmployee,
+                    VacationDays = vm.VacationDays,
+                    Salary = vm.Salary,
+                    CompanyName = vm.CompanyName,
+                    CityName = vm.CityName,
+                    CountryName = vm.CountryName,
+                    OfficeId = vm.OfficeId,
 
-            };
+                };
 
-            await this.service.DeleteEmployeeAsync(dto);
+                await this.service.DeleteEmployeeAsync(dto);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (EmployeeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
+          
         }
 
         private async Task<EmployeViewModel> GetEmployeeViewModelAsync(EmployeeDto employee)

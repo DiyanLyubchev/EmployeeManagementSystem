@@ -4,7 +4,6 @@ using EmployeeManagementSystemDataService.Employees;
 using EmployeeManagementSystemDataService.Models;
 using EmployeeManagementSystemUnitTest.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,26 +13,6 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
     [TestClass]
     public class Employee_Test
     {
-
-        [TestMethod]
-        public async Task AddEmployee_Test()
-        {
-            var employee = EmployeeGeneratorUtil.GenerateEmployee();
-            var options = TestUtilities.GetOptions(nameof(AddEmployee_Test));
-
-            using (var actContext = new EmployeeManagementSystemContext(options))
-            {
-                await actContext.Employees.AddAsync(employee);
-
-                await actContext.SaveChangesAsync();
-            }
-
-            using (var assertContext = new EmployeeManagementSystemContext(options))
-            {
-                Assert.AreEqual(1, assertContext.Employees.Count());
-
-            }
-        }
 
 
         [TestMethod]

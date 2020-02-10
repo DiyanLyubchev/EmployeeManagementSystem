@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemDataService.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -30,6 +31,7 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetCities(int countryId)
         {
             var city = await this.cityService.GetByCountryAsync(countryId);
@@ -38,22 +40,20 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetOffices(int companyId)
         {
             var office = await this.officeService.GetByCompanyAsync(companyId);
 
             return new JsonResult(office);
         }
+
+
         public IActionResult NotFoundPage()
         {
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-    
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
