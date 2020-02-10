@@ -4,6 +4,7 @@ using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.Models;
 using EmployeeManagementSystemDataService.Util;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,13 +53,13 @@ namespace EmployeeManagementSystemDataService.Companies
             return await this.context.Companies
                 .Where(isDeleted => isDeleted.IsDeleted == false)
                 .Select(company => new CompanyDto
-            {
-                Id = company.Id,
-                Name = company.Name,
-                CreationDate = company.CreationDate,
-                IsDeleted = company.IsDeleted
+                {
+                    Id = company.Id,
+                    Name = company.Name,
+                    CreationDate = company.CreationDate,
+                    IsDeleted = company.IsDeleted
 
-            }).ToListAsync();
+                }).ToListAsync();
         }
 
         public async Task<CompanyDto> GetAsync(int id)
@@ -93,7 +94,7 @@ namespace EmployeeManagementSystemDataService.Companies
             var company = await this.context.Companies
                 .FindAsync(dto.Id);
             company.IsDeleted = true;
-           
+
             await this.context.SaveChangesAsync();
         }
     }

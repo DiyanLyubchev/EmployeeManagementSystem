@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.CustomException;
@@ -64,7 +65,6 @@ namespace EmployeeManagementSystem.Controllers
             }
 
         }
-
 
         [HttpGet]
         [Authorize]

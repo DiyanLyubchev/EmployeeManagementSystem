@@ -60,7 +60,7 @@ namespace EmployeeManagementSystemData.Extentions
                 }
             }
 
-            modelBuilder.Entity<City>().HasData(citiesList.Take(20000));
+            modelBuilder.Entity<City>().HasData(citiesList.Take(30000));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 // Write your JavaScript code.
+
 function populateCities(countryId, targetSelectId) {
     $.getJSON(`/home/getCities?countryId=${countryId}`)
         .then(cities => {
@@ -39,4 +40,4 @@ function AddCompany() {
 function AddOffice() {
     window.location.href = "/Office/Add";
 }
- 
+

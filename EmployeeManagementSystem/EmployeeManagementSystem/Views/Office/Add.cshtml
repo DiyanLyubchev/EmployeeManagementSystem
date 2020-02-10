@@ -14,7 +14,7 @@
 
                 <div class="form-group">
                     <label asp-for="Street"></label>
-                    <input asp-for="Street" class="form-control" required minlength="3" maxlength="50"/>
+                    <input asp-for="Street" class="form-control" required minlength="3" maxlength="50" />
                     <span asp-validation-for="Street" class="text-danger"></span>
                 </div>
 
@@ -24,21 +24,28 @@
                     <span asp-validation-for="StreetNumber" class="text-danger"></span>
                 </div>
             </div>
-            <select asp-for="CompanyId"
-                    asp-items="@(new SelectList(Model.AllCompanies,"Id","Name"))">
-                <option>Select Company</option>
-            </select>
-
-            <select asp-for="CountryId"
-                    asp-items="@(new SelectList(Model.AllCountries,"Id","Name"))"
-                    onchange="populateCities(event.srcElement.value, 'CityId')">
-                <option>Select Country</option>
-            </select>
-
-            <select asp-for="CityId"
-                    asp-items="@(new SelectList(Model.CitiesByCountry,"Id","Name"))">
-                <option>Select City</option>
-            </select>
+            <br />
+            <div class="select">
+                <select asp-for="CompanyId"
+                        asp-items="@(new SelectList(Model.AllCompanies,"Id","Name"))">
+                    <option>Select Company</option>
+                </select>
+            </div>
+            <br />
+            <div class="select">
+                <select asp-for="CountryId"
+                        asp-items="@(new SelectList(Model.AllCountries,"Id","Name"))"
+                        onchange="populateCities(event.srcElement.value, 'CityId')">
+                    <option>Select Country</option>
+                </select>
+            </div>
+            <br />
+            <div class="select">
+                <select asp-for="CityId"
+                        asp-items="@(new SelectList(Model.CitiesByCountry,"Id","Name"))">
+                    <option>Select City</option>
+                </select>
+            </div>
             <br />
             <br />
             <div class="form-group">
