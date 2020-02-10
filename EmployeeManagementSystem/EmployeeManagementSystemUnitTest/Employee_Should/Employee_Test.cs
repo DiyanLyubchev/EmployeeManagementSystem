@@ -35,7 +35,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
             using (var actContext = new EmployeeManagementSystemContext(options))
             {
                 var sut = new EmployeeService(actContext);
-                var resilt = await sut.AddAsync(dto);
+                await sut.AddAsync(dto);
             }
         }
 
@@ -61,7 +61,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
             using (var actContext = new EmployeeManagementSystemContext(options))
             {
                 var sut = new EmployeeService(actContext);
-                var resilt = await sut.AddAsync(dto);
+                await sut.AddAsync(dto);
             }
         }
 
@@ -85,7 +85,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
             using (var actContext = new EmployeeManagementSystemContext(options))
             {
                 var sut = new EmployeeService(actContext);
-                var resilt = await sut.AddAsync(dto);
+                await sut.AddAsync(dto);
             }
         }
 
@@ -111,7 +111,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
             using (var actContext = new EmployeeManagementSystemContext(options))
             {
                 var sut = new EmployeeService(actContext);
-                var resilt = await sut.AddAsync(dto);
+                await sut.AddAsync(dto);
             }
         }
 
@@ -136,7 +136,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
             using (var actContext = new EmployeeManagementSystemContext(options))
             {
                 var sut = new EmployeeService(actContext);
-                var resilt = await sut.AddAsync(dto);
+                await sut.AddAsync(dto);
             }
         }
 
@@ -153,7 +153,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
                 CompanyId = 0,
                 OfficeId = employee.OfficeId,
                 ExperienceEmployeeId = employee.ExperienceEmployeeId,
-                 
+
             };
 
             var options = TestUtilities.GetOptions(nameof(ThrowException_IfCompanyIdIsNotCorrect));
@@ -161,7 +161,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
             using (var actContext = new EmployeeManagementSystemContext(options))
             {
                 var sut = new EmployeeService(actContext);
-                var resilt = await sut.AddAsync(dto);
+                await sut.AddAsync(dto);
             }
         }
 
@@ -186,7 +186,7 @@ namespace EmployeeManagementSystemUnitTest.Employee_Should
             using (var actContext = new EmployeeManagementSystemContext(options))
             {
                 var sut = new EmployeeService(actContext);
-                var resilt = await sut.AddAsync(dto);
+                await sut.AddAsync(dto);
             }
         }
 

@@ -14,14 +14,6 @@ namespace EmployeeManagementSystemDataService.Util
             }
         }
 
-        public static void ValidateCompanyCreationDateIfIsNull(DateTime? date)
-        {
-            if (date == null)
-            {
-                throw new CompanyException("Incorrect company date");
-            }
-        }
-
         public static bool ValidateCompanyIfExist(Company company)
         {
             if (company != null)
@@ -40,6 +32,16 @@ namespace EmployeeManagementSystemDataService.Util
             }
 
             return false;
+        }
+
+        public static bool ValidateIfCompanyIsNull(Company company)
+        {
+            if (company == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

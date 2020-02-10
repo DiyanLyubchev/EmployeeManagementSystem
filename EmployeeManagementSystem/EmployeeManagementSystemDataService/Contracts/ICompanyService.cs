@@ -7,7 +7,7 @@ namespace EmployeeManagementSystemDataService.Contracts
 {
     public interface ICompanyService
     {
-        Task AddAsync(CompanyDto dto);
+        Task<bool> AddAsync(CompanyDto dto);
         Task EditAsync(CompanyDto dto);
         Task<IEnumerable<CompanyDto>> GetAllAsync();
 
