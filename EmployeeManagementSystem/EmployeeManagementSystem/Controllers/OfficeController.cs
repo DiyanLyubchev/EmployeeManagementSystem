@@ -6,7 +6,9 @@ using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemData.Models.Companies;
 using EmployeeManagementSystemDataService.Companies;
 using EmployeeManagementSystemDataService.Contracts;
+using EmployeeManagementSystemDataService.CustomException;
 using EmployeeManagementSystemDataService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.Controllers
@@ -30,78 +32,129 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var listOffices = await this.service.GetAllAsync();
+            try
+            {
+                var listOffices = await this.service.GetAllAsync();
 
-            return View(listOffices);
+                return View(listOffices);
+            }
+            catch (OfficeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
+
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Add()
         {
-            var office = await GetOfficeViewModelAsync(new OfficeDto());
+            try
+            {
+                var office = await GetOfficeViewModelAsync(new OfficeDto());
 
-            return View(office);
+                return View(office);
+            }
+            catch (OfficeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(OfficeViewModel vm)
         {
-            var dto = new OfficeDto
+            try
             {
-                Id = vm.Id,
-                Street = vm.Street,
-                StreetNumber = vm.StreetNumber,
-                CompanyId = vm.CompanyId,
-                CityId = vm.CityId
-            };
+                var dto = new OfficeDto
+                {
+                    Id = vm.Id,
+                    Street = vm.Street,
+                    StreetNumber = vm.StreetNumber,
+                    CompanyId = vm.CompanyId,
+                    CityId = vm.CityId
+                };
 
-            await this.service.AddAsync(dto);
+                await this.service.AddAsync(dto);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (OfficeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            var office = await this.service.GetAsync(id);
-            var officeVm = await GetOfficeViewModelAsync(office);
+            try
+            {
+                var office = await this.service.GetAsync(id);
+                var officeVm = await GetOfficeViewModelAsync(office);
 
-            return View("Add", officeVm);
+                return View("Add", officeVm);
+            }
+            catch (OfficeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
+          
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(OfficeViewModel vm)
         {
-            var dto = new OfficeDto
+            try
             {
-                Id = vm.Id,
-                Street = vm.Street,
-                StreetNumber = vm.StreetNumber,
-                CompanyId = vm.CompanyId,
-                CityId = vm.CityId
-            };
+                var dto = new OfficeDto
+                {
+                    Id = vm.Id,
+                    Street = vm.Street,
+                    StreetNumber = vm.StreetNumber,
+                    CompanyId = vm.CompanyId,
+                    CityId = vm.CityId
+                };
 
-            await this.service.EditAsync(dto);
+                await this.service.EditAsync(dto);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (OfficeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
         }
 
+
+        [Authorize]
         public async Task<IActionResult> Delete(OfficeViewModel vm)
         {
-            var dto = new OfficeDto
+            try
             {
-                Id = vm.Id,
-                Street = vm.Street,
-                StreetNumber = vm.StreetNumber,
-                CompanyId = vm.CompanyId,
-                CityId = vm.CityId
-            };
+                var dto = new OfficeDto
+                {
+                    Id = vm.Id,
+                    Street = vm.Street,
+                    StreetNumber = vm.StreetNumber,
+                    CompanyId = vm.CompanyId,
+                    CityId = vm.CityId
+                };
 
-            await this.service.DeleteAsync(dto);
+                await this.service.DeleteAsync(dto);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (OfficeException ex)
+            {
+                return View("Message", new MessageViewModel { Message = ex.Message });
+            }
         }
 
         private async Task<OfficeViewModel> GetOfficeViewModelAsync(OfficeDto office)

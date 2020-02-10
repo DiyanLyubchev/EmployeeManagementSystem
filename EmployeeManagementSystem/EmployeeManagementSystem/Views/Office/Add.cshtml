@@ -14,13 +14,13 @@
 
                 <div class="form-group">
                     <label asp-for="Street"></label>
-                    <input asp-for="Street" class="form-control" required />
+                    <input asp-for="Street" class="form-control" required minlength="3" maxlength="50"/>
                     <span asp-validation-for="Street" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="StreetNumber"></label>
-                    <input asp-for="StreetNumber" class="form-control" required />
+                    <input asp-for="StreetNumber" class="form-control" required min="1" />
                     <span asp-validation-for="StreetNumber" class="text-danger"></span>
                 </div>
             </div>
