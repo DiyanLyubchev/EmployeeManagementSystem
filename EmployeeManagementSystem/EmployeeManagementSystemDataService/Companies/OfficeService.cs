@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
 using EmployeeManagementSystemData.Models.Companies;
+using System;
 
 namespace EmployeeManagementSystemDataService.Companies
 {
@@ -16,7 +17,7 @@ namespace EmployeeManagementSystemDataService.Companies
 
         public OfficeService(EmployeeManagementSystemContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<OfficeDto> GetAsync(int id)
@@ -27,7 +28,6 @@ namespace EmployeeManagementSystemDataService.Companies
                 .FirstAsync();
 
             ValidatorOffice.ValidatorOffices(office);
-
 
             return new OfficeDto
             {
@@ -56,29 +56,29 @@ namespace EmployeeManagementSystemDataService.Companies
                      CityName = office.City.Name,
                      CompanyName = office.Company.Name,
                      CompanyId = office.CompanyId,
-                     IsDeleted = office.IsDeleted
+                     IsDeleted = office.IsDeleted,
+                     CompanyIsDeleted = office.Company.IsDeleted
                  }).ToListAsync();
         }
 
         public async Task<IEnumerable<OfficeDto>> GetAllAsync()
         {
 
-            
-
             return await this.context.Offices.Where(isDeleted => isDeleted.IsDeleted == false)
                 .Select(office => new OfficeDto
-            {
-                Id = office.Id,
-                Street = office.Street,
-                StreetNumber = office.StreetNumber,
-                CityId = office.CityId,
-                CompanyId = office.CompanyId,
-                CompanyName = office.Company.Name,
-                CountryName = office.City.Country.Name,
-                CityName = office.City.Name,
-                IsDeleted = office.IsDeleted
+                {
+                    Id = office.Id,
+                    Street = office.Street,
+                    StreetNumber = office.StreetNumber,
+                    CityId = office.CityId,
+                    CompanyId = office.CompanyId,
+                    CompanyName = office.Company.Name,
+                    CountryName = office.City.Country.Name,
+                    CityName = office.City.Name,
+                    IsDeleted = office.IsDeleted,
+                    CompanyIsDeleted = office.Company.IsDeleted,
 
-            }).ToListAsync();
+                }).ToListAsync();
         }
 
         public async Task<bool> AddAsync(OfficeDto dto)
@@ -131,7 +131,7 @@ namespace EmployeeManagementSystemDataService.Companies
                .FirstAsync();
 
             office.IsDeleted = true;
-          
+
             await this.context.SaveChangesAsync();
         }
     }

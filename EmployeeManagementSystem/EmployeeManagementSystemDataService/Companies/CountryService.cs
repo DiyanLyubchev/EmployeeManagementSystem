@@ -4,6 +4,7 @@ using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.Models;
 using EmployeeManagementSystemDataService.Util;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace EmployeeManagementSystemDataService.Companies
 
         public CountryService(EmployeeManagementSystemContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<IEnumerable<CountryDto>> GetAllAsync()

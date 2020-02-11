@@ -27,6 +27,9 @@
         <tbody>
             @foreach (var em in Model)
             {
+                var companyIsDeleted = em.CompanyIsDeleted;
+                var officeIsDeleted = em.OfficeIsDeleted;
+                var empty = new String(' ', 5);
                 <tr>
                     @if (em.IsDeleted == false)
                     {
@@ -34,16 +37,34 @@
                         <td>@em.FirstName </td>
                         <td>@em.LastName</td>
                         <td>@(((ExperienceEmployeeType)em.ExperienceEmployeeId).ToString())</td>
-                        <td>@em.StartingDate.ToShortDateString()</td>
-                        <td>@em.VacationDays </td>
-                        <td>@em.Salary </td>
-                        <td>@em.CompanyName </td>
-                        <td>@em.CountryName, @em.CityName</td>
+                        if (!companyIsDeleted)
+                        {
+                            <td>@em.StartingDate.ToShortDateString()</td>
+                            <td>@em.VacationDays </td>
+                            <td>@em.Salary </td>
+                            <td>@em.CompanyName </td>
+                        }
+                        else
+                        {
+                            <td>@empty</td>
+                            <td>@empty</td>
+                            <td>@empty</td>
+                            <td>@empty</td>
+                        }
+                        if (!officeIsDeleted && !companyIsDeleted)
+                        {
+                            <td>@em.CountryName, @em.CityName</td>
+                        }
+                        else
+                        {
+                            <td>@empty</td>
+                        }
+
                         <td>
                             <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Employee", em)'">
                                 Edit
                             </button>
-                            <br/>
+                            <br />
                             <button class="btn alert-success" onclick="window.location.href='@Url.Action("Delete", "Employee", em)'">
                                 Delete
                             </button>

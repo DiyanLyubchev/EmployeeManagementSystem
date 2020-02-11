@@ -18,7 +18,7 @@ namespace EmployeeManagementSystemDataService.Companies
         private const int existCompany = 1;
         public CompanyService(EmployeeManagementSystemContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<bool> AddAsync(CompanyDto dto)

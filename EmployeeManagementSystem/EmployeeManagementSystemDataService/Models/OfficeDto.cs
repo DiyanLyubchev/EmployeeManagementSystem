@@ -16,6 +16,8 @@
 
         public bool IsDeleted { get; set; }
 
+        public bool CompanyIsDeleted { get; set; }
+
         public string CompanyName { get; set; }
 
         public string CountryName { get; set; }
