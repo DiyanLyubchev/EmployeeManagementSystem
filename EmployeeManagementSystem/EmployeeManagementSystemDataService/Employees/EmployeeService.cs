@@ -17,9 +17,8 @@ namespace EmployeeManagementSystemDataService.Employees
 
         public EmployeeService(EmployeeManagementSystemContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
-
 
         public async Task<EmployeeDto> GetEmployeeAsync(int employeeId)
         {
@@ -42,6 +41,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 IsDeleted = employee.IsDeleted,
                 CompanyId = employee.CompanyId,
                 CompanyName = employee.Company.Name,
+                CompanyIsDeleted = employee.Company.IsDeleted,
                 CountryId = employee.Office.City.CountryId,
                 CityName = employee.Office.City.Name,
                 CountryName = employee.Office.City.Country.Name,
@@ -98,9 +98,11 @@ namespace EmployeeManagementSystemDataService.Employees
                 VacationDays = employee.VacationDays,
                 StartingDate = employee.StartingDate,
                 Salary = employee.Salary,
-                IsDeleted =employee.IsDeleted,
+                IsDeleted = employee.IsDeleted,
                 CompanyId = employee.CompanyId,
                 CompanyName = employee.Company.Name,
+                OfficeIsDeleted = employee.Office.IsDeleted,
+                CompanyIsDeleted = employee.Company.IsDeleted,
                 OfficeId = employee.OfficeId,
                 CityName = employee.Office.City.Name,
                 CountryName = employee.Office.City.Country.Name,
@@ -126,7 +128,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 .Where(company => company.Id == office.CompanyId && office.IsDeleted == false)
                 .FirstAsync();
 
-           var validateCompany = ValidatorCompany.ValidateIfCompanyIsNull(company);
+            var validateCompany = ValidatorCompany.ValidateIfCompanyIsNull(company);
 
             if (validateCompany)
             {
@@ -142,7 +144,7 @@ namespace EmployeeManagementSystemDataService.Employees
 
                 await this.context.SaveChangesAsync();
             }
-          
+
         }
 
         public async Task DeleteEmployeeAsync(EmployeeDto dto)
@@ -151,7 +153,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 .Where(id => id.Id == dto.Id)
                 .FirstOrDefaultAsync();
             employee.IsDeleted = true;
-            
+
             await this.context.SaveChangesAsync();
         }
     }

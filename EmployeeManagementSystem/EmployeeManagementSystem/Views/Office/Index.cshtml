@@ -22,10 +22,11 @@
         <tbody>
             @foreach (var office in Model)
             {
+                var companyIsDeleted = office.CompanyIsDeleted;
                 <tr>
-                    @if (office.IsDeleted == false)
+                    @if (office.IsDeleted == false && companyIsDeleted == false)
                     {
-
+                        
                         <td>@office.CompanyName </td>
                         <td>@office.CountryName</td>
                         <td>@office.CityName</td>

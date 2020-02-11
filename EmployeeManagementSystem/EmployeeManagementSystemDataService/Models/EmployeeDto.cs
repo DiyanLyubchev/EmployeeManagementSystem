@@ -23,9 +23,12 @@ namespace EmployeeManagementSystemDataService.Models
 
         public string CompanyName { get; set; }
 
+        public bool CompanyIsDeleted { get; set; }
         public int CompanyId { get; set; }
 
         public int CountryId { get; set; }
+
+        public bool OfficeIsDeleted { get; set; }        
 
         public int? OfficeId { get; set; }
 
