@@ -41,3 +41,13 @@ function AddOffice() {
     window.location.href = "/Office/Add";
 }
 
+$('#load-button').on('click', function () {
+    const search = $('#search-text').val();
+
+    $.ajax({
+        url: '/Company/Search',
+        data: { searchData: search },
+        type: 'GET',
+        dataType: 'json'
+    });
+})

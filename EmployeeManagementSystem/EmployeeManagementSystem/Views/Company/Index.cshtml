@@ -4,48 +4,56 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<body>
-    <div style="width:33%; height:55px; float:left; justify-content:space-between;">
-        <button class="btn alert-success" onclick="AddCompany()">
-            Add New
-        </button>
-    </div>
-    <br />
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Company name</th>
-                <th scope="col">Creation Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var company in Model)
-            {
+    <body>
+        <div style="width:60%; height:60px;">
+            <div style="width:33%; height:55px; float:left; justify-content:space-between;">
+                <button class="btn alert-success" onclick="AddCompany()">
+                    Add New
+                </button>
+            </div>
+            <div style="width:33%; height:55px; float:right; justify-content:space-between;">
+                <input type="text" name="name" value="" id="search-text" class="form-control" />
+                <br />
+                <button id="load-button" class="btn alert-success">Search</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    @if (company.IsDeleted == false)
-                    {
-                        <td>@company.Name </td>
-                        <td>@company.CreationDate.ToShortDateString()</td>
-                        <td>
-                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
-                                Edit
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Delete", "Company", company)'">
-                                Delete
-                            </button>
-                        </td>
-                    }
+                    <th scope="col">Company name</th>
+                    <th scope="col">Creation Date</th>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            <tbody>
+                @foreach (var company in Model)
+                {
+                    <tr>
+                        @if (company.IsDeleted == false)
+                        {
+                            <td>@company.Name </td>
+                            <td>@company.CreationDate.ToShortDateString()</td>
+                            <td>
+                                <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
+                                    Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn alert-success" onclick="window.location.href='@Url.Action("Delete", "Company", company)'">
+                                    Delete
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
 
-    </table>
-    <strong>
-        <a style="color:mediumseagreen" href="javascript:history.go(-1)" title="Go to previous page" class="goback">Go back</a>
-    </strong>
-</body>
+        </table>
+        <strong>
+            <a style="color:mediumseagreen" href="javascript:history.go(-1)" title="Go to previous page" class="goback">Go back</a>
+        </strong>
+    </body>
 
 
 

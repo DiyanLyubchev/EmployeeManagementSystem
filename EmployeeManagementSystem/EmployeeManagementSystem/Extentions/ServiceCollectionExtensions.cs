@@ -1,6 +1,7 @@
 ﻿using EmployeeManagementSystemDataService.Companies;
 using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.Employees;
+using EmployeeManagementSystemDataService.Search;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +17,7 @@ namespace EmployeeManagementSystem.Extentions
             services.AddScoped<IOfficeService, OfficeService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<ISearchService, SearchService>();
 
             return services;
         }

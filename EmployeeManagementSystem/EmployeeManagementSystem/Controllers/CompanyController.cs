@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.CustomException;
 using EmployeeManagementSystemDataService.Models;
+using EmployeeManagementSystemDataService.Search;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +12,12 @@ namespace EmployeeManagementSystem.Controllers
     public class CompanyController : Controller
     {
         private readonly ICompanyService service;
+        private readonly ISearchService searchService;
 
-        public CompanyController(ICompanyService service)
+        public CompanyController(ICompanyService service, ISearchService searchService)
         {
             this.service = service;
+            this.searchService = searchService;
         }
 
         [HttpGet]
@@ -135,6 +137,20 @@ namespace EmployeeManagementSystem.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Search(string searchData)
+        {
+            var dto = new SearchDto { Data = searchData };
+
+
+            var result = await this.searchService.SearchAsync(dto);
+
+            var stop = 0;
+
+            return View();
         }
     }
 }
