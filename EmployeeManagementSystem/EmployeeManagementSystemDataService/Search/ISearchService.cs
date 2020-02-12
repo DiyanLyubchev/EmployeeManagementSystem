@@ -9,5 +9,7 @@ namespace EmployeeManagementSystemDataService.Search
         Task<IEnumerable<CompanyDto>> SearchCompanyAsync(SearchDto dto);
 
         Task<IEnumerable<OfficeDto>> SearchOfficeAsync(SearchDto dto);
+
+        Task<IEnumerable<EmployeeDto>> SearchEmployeeAsync(SearchDto dto);
     }
 }

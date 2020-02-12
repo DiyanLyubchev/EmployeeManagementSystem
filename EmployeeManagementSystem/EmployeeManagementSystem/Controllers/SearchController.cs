@@ -45,6 +45,15 @@ namespace EmployeeManagementSystem.Controllers
             return Json(result);
         }
 
+        [Authorize]
+        public async Task<IActionResult> SearchEmployee([FromQuery]string searchData)
+        {
+            var dto = new SearchDto { Data = searchData };
+
+            var result = await this.searchService.SearchEmployeeAsync(dto);
+
+            return Json(result);
+        }
         //[Authorize]
         //public async Task<IActionResult> Details(string id)
         //{
