@@ -13,12 +13,10 @@ namespace EmployeeManagementSystem.Controllers
     public class CompanyController : Controller
     {
         private readonly ICompanyService service;
-        private readonly ISearchService searchService;
 
-        public CompanyController(ICompanyService service, ISearchService searchService)
+        public CompanyController(ICompanyService service)
         {
             this.service = service;
-            this.searchService = searchService;
         }
 
         [HttpGet]
@@ -140,23 +138,6 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
-        public IActionResult Home()
-        {
-            return View();
-        }
-
-
-        [Authorize]
-        public async Task<IActionResult> Search([FromQuery]string searchData)
-        {
-            var dto = new SearchDto { Data = searchData };
-
-            var result = await this.searchService.SearchAsync(dto);
-            
-            return Json(result);
-        }
-
-
+     
     }
 }

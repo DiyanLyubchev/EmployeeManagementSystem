@@ -17,17 +17,36 @@ namespace EmployeeManagementSystemDataService.Search
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<IEnumerable<CompanyDto>> SearchAsync(SearchDto dto)
+        public async Task<IEnumerable<CompanyDto>> SearchCompanyAsync(SearchDto dto)
         {
 
             var listCompanies = await this.context.Companies
                .Where(name => name.Name.ToLower().Contains(dto.Data
                .ToLower()) && name.IsDeleted == false)
-               .Select(company => new CompanyDto 
+               .Select(company => new CompanyDto
                {
                    Id = company.Id,
-                   Name = company.Name , 
-                   CreationDate =company.CreationDate
+                   Name = company.Name,
+                   CreationDate = company.CreationDate
+               })
+               .ToListAsync();
+
+            return listCompanies;
+        }
+
+        public async Task<IEnumerable<OfficeDto>> SearchOfficeAsync(SearchDto dto)
+        {
+            var listCompanies = await this.context.Offices
+               .Where(name => name.Company.Name.ToLower().Contains(dto.Data
+               .ToLower()) && name.IsDeleted == false)
+               .Select(office => new OfficeDto
+               {
+                   Id = office.Id,
+                   CityName = office.City.Name,
+                   Street = office.Street,
+                   CompanyName = office.Company.Name,
+                   CountryName = office.City.Country.Name
+
                })
                .ToListAsync();
 
