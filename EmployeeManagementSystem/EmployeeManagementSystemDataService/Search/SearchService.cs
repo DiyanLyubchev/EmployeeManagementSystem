@@ -23,7 +23,12 @@ namespace EmployeeManagementSystemDataService.Search
             var listCompanies = await this.context.Companies
                .Where(name => name.Name.ToLower().Contains(dto.Data
                .ToLower()) && name.IsDeleted == false)
-               .Select(company => new CompanyDto { Id = company.Id, Name = company.Name })
+               .Select(company => new CompanyDto 
+               {
+                   Id = company.Id,
+                   Name = company.Name , 
+                   CreationDate =company.CreationDate
+               })
                .ToListAsync();
 
             return listCompanies;

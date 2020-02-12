@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.CustomException;
@@ -139,18 +140,23 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Search(string searchData)
+        public IActionResult Home()
+        {
+            return View();
+        }
+
+
+        [Authorize]
+        public async Task<IActionResult> Search([FromQuery]string searchData)
         {
             var dto = new SearchDto { Data = searchData };
 
-
             var result = await this.searchService.SearchAsync(dto);
-
-            var stop = 0;
-
-            return View();
+            
+            return Json(result);
         }
+
+
     }
 }
