@@ -7,7 +7,7 @@ $('#search-company-button').on('click', function () {
         url: '/Search/SearchCompany?searchData=' + searchText,
         type: 'GET',
         success: function (serverData) {
-          
+
             $('#info-table').remove();
             console.log(serverData);
 
@@ -41,7 +41,7 @@ $('#search-office-button').on('click', function () {
         url: '/Search/SearchOffice?searchData=' + searchText,
         type: 'GET',
         success: function (serverData) {
-           
+
             $('#info-table').remove();
 
             const officeContainer = $('#showitems');
@@ -73,7 +73,7 @@ $('#search-employee-button').on('click', function () {
         url: '/Search/SearchEmployee?searchData=' + searchText,
         type: 'GET',
         success: function (serverData) {
-           
+
             $('#info-table').remove();
 
             const employeeContainer = $('#showitems');
@@ -81,12 +81,12 @@ $('#search-employee-button').on('click', function () {
             const tableStart =
                 `<table class="table table-bordered" id="info-table"><tr><th scope="col">First Name</th><th scope="col">Last Name</th><th scope="col">Experience level</th><th scope="col">Starting date</th><th scope="col">Vacation days</th><th scope="col">Salary</th><th scope="col">Company</th><th scope="col">Location</th><th></th></tr>`;
             const tableEnd = `</table>`;
-             
+
             if (serverData !== null) {
                 employeeContainer.append(tableStart)
                 const employeeTable = $('#info-table');
                 serverData
-                    .map(employee => $(`<tr scope="row"><td>${employee.firstName}</td><td>${employee.lastName}</td><td>${employee.experienceEmployeeId}</td><td>${employee.startingDate}</td><td>${employee.vacationDays}</td><td>${employee.salary}</td><td>${employee.companyName}</td><td>
+                    .map(employee => $(`<tr scope="row"><td>${employee.firstName}</td><td>${employee.lastName}</td><td>${checkExperienceId(employee.experienceEmployeeId)}</td><td>${formatDate(employee.startingDate)}</td><td>${employee.vacationDays}</td><td>${employee.salary}</td><td>${employee.companyName}</td><td>
                        <button id="details-search-button" value="${employee.id}" type="submit" class="btn alert-success">Details</button></td></tr>`))
                     .forEach(employeeElement => {
                         employeeTable.append(employeeElement);
@@ -96,4 +96,33 @@ $('#search-employee-button').on('click', function () {
         }
     });
 });
+
+function formatDate(date) {
+    let monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'
+        , 'September', 'October', 'November', 'December'];
+
+    let formatDate = new Date(date);
+    let month = formatDate.getMonth();
+    let newDateFormat = monthArray[month] + '/' + formatDate.getDate() + '/' + formatDate.getFullYear()
+
+    return newDateFormat;
+}
+
+
+
+
+function checkExperienceId(id) {
+    if (id === 1) {
+        return "Junior";
+
+    }
+    else if (id === 2) {
+        return "Middle";
+    }
+    else if (id === 3) {
+        return "Senior";
+    }
+}
+
+
 
