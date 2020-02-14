@@ -48,7 +48,6 @@ namespace EmployeeManagementSystem.Controllers
             return new JsonResult(office);
         }
 
-
         public IActionResult NotFoundPage()
         {
             return View();

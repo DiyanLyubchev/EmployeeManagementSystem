@@ -4,48 +4,47 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<body>
-    <div style="width:33%; height:55px; float:left; justify-content:space-between;">
+    <body>
         <button class="btn alert-success" onclick="AddCompany()">
             Add New
         </button>
-    </div>
-    <br />
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Company name</th>
-                <th scope="col">Creation Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var company in Model)
-            {
+        <br />
+        <br />
+        <table class="table table-hover" id="mytable">
+            <thead>
                 <tr>
-                    @if (company.IsDeleted == false)
-                    {
-                        <td>@company.Name </td>
-                        <td>@company.CreationDate.ToShortDateString()</td>
-                        <td>
-                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
-                                Edit
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn alert-success" onclick="window.location.href='@Url.Action("Delete", "Company", company)'">
-                                Delete
-                            </button>
-                        </td>
-                    }
+                    <th scope="col">Company name</th>
+                    <th scope="col">Creation Date</th>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            <tbody>
+                @foreach (var company in Model)
+                {
+                    <tr>
+                        @if (company.IsDeleted == false)
+                        {
+                            <td>@company.Name </td>
+                            <td>@company.CreationDate.ToShortDateString()</td>
+                            <td>
+                                <button class="btn alert-success" onclick="window.location.href='@Url.Action("Edit", "Company", company)'">
+                                    Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn alert-success" onclick="window.location.href='@Url.Action("Delete", "Company", company)'">
+                                    Delete
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
 
-    </table>
-    <strong>
-        <a style="color:mediumseagreen" href="javascript:history.go(-1)" title="Go to previous page" class="goback">Go back</a>
-    </strong>
-</body>
+        </table>
+        <strong>
+            <a style="color:mediumseagreen" href="javascript:history.go(-1)" title="Go to previous page" class="goback">Go back</a>
+        </strong>
+    </body>
 
 
 

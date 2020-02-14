@@ -11,7 +11,7 @@ function populateCities(countryId, targetSelectId) {
             });
             select.html(options);
         });
-}
+};
 
 function populateOffices(OfficeId, targetSelectId) {
     $.getJSON(`/home/getOffices?companyId=${OfficeId}`)
@@ -23,21 +23,21 @@ function populateOffices(OfficeId, targetSelectId) {
             });
             select.html(options);
         });
-}
+};
 
 function onBack() {
     href = "javascript:history.go(-1)";
-}
+};
 
 function AddEmployee() {
     window.location.href = "/Employee/Add";
-}
+};
 
 function AddCompany() {
     window.location.href = "/Company/Add";
-}
+};
 
 function AddOffice() {
     window.location.href = "/Office/Add";
-}
+};
 
