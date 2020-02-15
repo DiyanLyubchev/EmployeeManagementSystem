@@ -27,7 +27,9 @@ namespace EmployeeManagementSystemDataService.Search
                {
                    Id = company.Id,
                    Name = company.Name,
-                   CreationDate = company.CreationDate
+                   CreationDate = company.CreationDate,
+                   CountEmployees = company.Employees.Count(),
+                   CountOffices = company.Offices.Count()
                })
                .ToListAsync();
 
@@ -47,7 +49,6 @@ namespace EmployeeManagementSystemDataService.Search
                    StreetNumber = office.StreetNumber,
                    CompanyName = office.Company.Name,
                    CountryName = office.City.Country.Name
-
                })
                .ToListAsync();
 
@@ -76,7 +77,6 @@ namespace EmployeeManagementSystemDataService.Search
                    CityName = employee.Office.City.Name,
                    CountryName = employee.Office.City.Country.Name,
                    CountryId = employee.Office.City.Country.Id
-
                })
                .ToListAsync();
 

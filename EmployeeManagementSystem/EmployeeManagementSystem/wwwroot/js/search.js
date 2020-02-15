@@ -8,21 +8,20 @@ $('#search-company-button').on('click', function () {
         type: 'GET',
         success: function (serverData) {
 
+
             $('#info-table').remove();
-            console.log(serverData);
 
             const companyContainer = $('#showitems');
 
             const tableStart =
-                `<table class="table table-bordered" id="info-table"><tr><th scope="col">Name</th><th scope="col">Creation Date</th><th></th></tr>`;
+                `<table class="table table-bordered" id="info-table"><tr><th scope="col">Name</th><th scope="col">Creation Date</th><th scope="col">Offices</th><th scope="col">Employees</th><th></th></tr>`;
             const tableEnd = `</table>`;
 
             if (serverData !== null) {
                 companyContainer.append(tableStart)
                 const companyTable = $('#info-table');
                 serverData
-                    .map(company => $(`<tr scope="row"><td>${company.name}</td><td>${company.creationDate}</td><td>
-                       <button id="details-search-button" value="${company.id}" type="submit" class="btn alert-success">Details</button></td></tr>`))
+                    .map(company => $(`<tr scope="row"><td>${company.name}</td><td>${formatDate(company.creationDate)}</td><td>${company.countOffices}</td><td>${company.countEmployees}</td></tr>`))
                     .forEach(companyElement => {
                         companyTable.append(companyElement);
                     });
@@ -30,7 +29,8 @@ $('#search-company-button').on('click', function () {
             }
         }
     });
-});
+}); 
+
 
 //search office by city
 
@@ -54,8 +54,7 @@ $('#search-office-button').on('click', function () {
                 officeContainer.append(tableStart)
                 const officeTable = $('#info-table');
                 serverData
-                    .map(office => $(`<tr scope="row"><td>${office.companyName}</td><td>${office.countryName}</td><td>${office.cityName}</td><td>${office.street}, ${office.streetNumber}</td><td>
-                       <button id="details-search-button" value="${office.id}" type="submit" class="btn alert-success">Details</button></td></tr>`))
+                    .map(office => $(`<tr scope="row"><td>${office.companyName}</td><td>${office.countryName}</td><td>${office.cityName}</td><td>${office.street}, ${office.streetNumber}</td></tr>`))
                     .forEach(officeElement => {
                         officeTable.append(officeElement);
                     });
@@ -86,8 +85,7 @@ $('#search-employee-button').on('click', function () {
                 employeeContainer.append(tableStart)
                 const employeeTable = $('#info-table');
                 serverData
-                    .map(employee => $(`<tr scope="row"><td>${employee.firstName}</td><td>${employee.lastName}</td><td>${checkExperienceId(employee.experienceEmployeeId)}</td><td>${formatDate(employee.startingDate)}</td><td>${employee.vacationDays}</td><td>${employee.salary}</td><td>${employee.companyName}</td><td>
-                       <button id="details-search-button" value="${employee.id}" type="submit" class="btn alert-success">Details</button></td></tr>`))
+                    .map(employee => $(`<tr scope="row"><td>${employee.firstName}</td><td>${employee.lastName}</td><td>${checkExperienceId(employee.experienceEmployeeId)}</td><td>${formatDate(employee.startingDate)}</td><td>${employee.vacationDays}</td><td>${employee.salary}</td><td>${employee.companyName}</td><td>${employee.countryName}, ${employee.cityName}</td></tr>`))
                     .forEach(employeeElement => {
                         employeeTable.append(employeeElement);
                     });
@@ -109,12 +107,9 @@ function formatDate(date) {
 }
 
 
-
-
 function checkExperienceId(id) {
     if (id === 1) {
         return "Junior";
-
     }
     else if (id === 2) {
         return "Middle";
@@ -123,6 +118,5 @@ function checkExperienceId(id) {
         return "Senior";
     }
 }
-
 
 
