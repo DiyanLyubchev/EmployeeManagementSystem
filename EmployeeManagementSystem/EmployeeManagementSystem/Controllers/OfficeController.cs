@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
-using EmployeeManagementSystemData.Models.Companies;
-using EmployeeManagementSystemDataService.Companies;
 using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.CustomException;
 using EmployeeManagementSystemDataService.Models;
@@ -138,7 +134,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             var sb = await this.service.ExportOffices();
 
-            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Grid.csv");
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Offices.csv");
         }
 
 

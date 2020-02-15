@@ -166,6 +166,7 @@ namespace EmployeeManagementSystemDataService.Employees
             List<EmployeeDto> list = employees.ToList();
 
             StringBuilder sb = new StringBuilder();
+        
             sb.Append("First Name");
             sb.Append("Last Name");
             sb.Append("Experience Level");
@@ -197,7 +198,7 @@ namespace EmployeeManagementSystemDataService.Employees
                 sb.Append(salary + ',');
                 sb.Append(companyNAme + ',');
                 sb.Append(locationCountry + ',');
-                sb.Append(locationCity);
+                sb.Append(locationCity + ',');
 
                 sb.Append("\r\n");
             }
