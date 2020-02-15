@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemData.Models.Companies;
@@ -130,6 +131,14 @@ namespace EmployeeManagementSystem.Controllers
             {
                 return View("Message", new MessageViewModel { Message = ex.Message });
             }
+        }
+
+        [Authorize]
+        public async Task<FileResult> Export()
+        {
+            var sb = await this.service.ExportOffices();
+
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Grid.csv");
         }
 
 

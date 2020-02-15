@@ -48,3 +48,7 @@ function ExportEmployee() {
 function ExportCompany() {
     window.location.href = "/Company/Export";
 }
+
+function ExportOffice() {
+    window.location.href = "/Office/Export";
+}

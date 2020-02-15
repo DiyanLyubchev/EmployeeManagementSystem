@@ -4,9 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
     <body>
-        <button class="btn alert-success" onclick="AddOffice()">
-            Add New
-        </button>
+        <div style="width:250px;">
+            <div style="float:left">
+                <button class="btn alert-success" onclick="AddOffice()">
+                    Add New
+                </button>
+            </div>
+            <div style="float:right">
+                <button class="btn alert-success" onclick="ExportOffice()">
+                    Export
+                </button>
+            </div>
+        </div>
         <br />
         <br />
         <table class="table table-hover">

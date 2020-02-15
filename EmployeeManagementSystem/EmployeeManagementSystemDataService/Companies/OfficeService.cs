@@ -8,6 +8,7 @@ using System.Linq;
 using System.Collections.Generic;
 using EmployeeManagementSystemData.Models.Companies;
 using System;
+using System.Text;
 
 namespace EmployeeManagementSystemDataService.Companies
 {
@@ -133,6 +134,42 @@ namespace EmployeeManagementSystemDataService.Companies
             office.IsDeleted = true;
 
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<StringBuilder> ExportOffices()
+        {
+            var offices = await this.GetAllAsync();
+
+            List<OfficeDto> list = offices.ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Company Name");
+            sb.Append("Company");
+            sb.Append("City");
+            sb.Append("Street");
+            sb.Append("Street Number");
+            sb.Append("\r\n");
+
+            for (int i = 0; i < list.Count(); i++)
+            {
+                var companyName = list[i].CompanyName;
+                var country = list[i].CompanyName;
+                var city = list[i].CityName;
+                var street = list[i].Street;
+                var streetNumber = list[i].StreetNumber.ToString();
+
+                sb.Append(companyName + ',');
+                sb.Append(country + ',');
+                sb.Append(city + ',');
+                sb.Append(street + ',');
+                sb.Append(streetNumber + ',');
+
+                sb.Append("\r\n");
+
+            }
+
+            return sb;
         }
     }
 }
