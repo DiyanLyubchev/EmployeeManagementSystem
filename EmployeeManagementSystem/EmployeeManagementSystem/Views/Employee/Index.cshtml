@@ -1,14 +1,24 @@
 ﻿@model IEnumerable<EmployeeDto>
-@using EmployeeManagementSystemDataService.Models
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using EmployeeManagementSystemData.Common
+
+
     <body>
-        <button class="btn alert-success" onclick="AddEmployee()">
-            Add New
-        </button>
+        <div style="width:250px;">
+            <div style="float:left">
+                <button class="btn alert-success" onclick="AddEmployee()">
+                    Add New
+                </button>
+            </div>
+            <div style="float:right">
+                <button class="btn alert-success"  onclick="ExportEmployee()" >
+                    Export
+                </button>
+            </div>
+        </div>
         <br />
         <br />
         <table class="table table-hover">

@@ -41,3 +41,10 @@ function AddOffice() {
     window.location.href = "/Office/Add";
 };
 
+function ExportEmployee() {
+    window.location.href = "/Employee/Export";
+}
+
+function ExportCompany() {
+    window.location.href = "/Company/Export";
+}

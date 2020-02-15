@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using EmployeeManagementSystemDataService.Models;
 using EmployeeManagementSystemDataService.Search;
 using Microsoft.AspNetCore.Authorization;
@@ -23,7 +20,6 @@ namespace EmployeeManagementSystem.Controllers
         {
             return View();
         }
-
 
         [Authorize]
         public async Task<IActionResult> SearchCompany([FromQuery]string searchData)
@@ -54,12 +50,7 @@ namespace EmployeeManagementSystem.Controllers
 
             return Json(result);
         }
-        //[Authorize]
-        //public async Task<IActionResult> Details(string id)
-        //{
-        //    var test = id;
 
-        //    return View();
-        //}
+
     }
 }

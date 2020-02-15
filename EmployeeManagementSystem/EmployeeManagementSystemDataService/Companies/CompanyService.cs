@@ -59,14 +59,15 @@ namespace EmployeeManagementSystemDataService.Companies
                     Id = company.Id,
                     Name = company.Name,
                     CreationDate = company.CreationDate,
-                    IsDeleted = company.IsDeleted
+                    IsDeleted = company.IsDeleted,
+                    CountEmployees = company.Employees.Count(),
+                    CountOffices = company.Offices.Count()
 
                 }).ToListAsync();
         }
 
         public async Task<CompanyDto> GetAsync(int id)
         {
-
             return await this.context.Companies
                 .Where(comapanyId => comapanyId.Id == id && comapanyId.IsDeleted == false)
                 .Select(company => new CompanyDto
@@ -74,7 +75,9 @@ namespace EmployeeManagementSystemDataService.Companies
                     Id = company.Id,
                     CreationDate = company.CreationDate,
                     Name = company.Name,
-                    IsDeleted = company.IsDeleted
+                    IsDeleted = company.IsDeleted,
+                    CountEmployees = company.Employees.Count(),
+                    CountOffices = company.Offices.Count()
                 }).FirstAsync();
 
         }

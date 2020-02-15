@@ -1,4 +1,4 @@
-﻿
+﻿@model CompanyDto
 <body>
     <div id="showitems" style=" width: 100%;">
         <div class="searchcompany">
@@ -22,5 +22,32 @@
 
 </body>
 
+<div id="content">
+</div>
+
+@section Scripts{
+    <script>
+        function search() {
+            $.ajax({
+                url: '/Company/Index',
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#content').html(result);
+                }
+            });
+            return false;
+        }
+        function gettoken()
+        {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        }
+        $(document).on("click", "#detail-company-button", search);
+        $(document).on("click", "#contentPager a", search);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+}
 
 
