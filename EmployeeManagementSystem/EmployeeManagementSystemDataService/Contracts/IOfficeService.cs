@@ -1,6 +1,7 @@
 ﻿using EmployeeManagementSystemData.Models.Companies;
 using EmployeeManagementSystemDataService.Models;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EmployeeManagementSystemDataService.Contracts
@@ -18,5 +19,7 @@ namespace EmployeeManagementSystemDataService.Contracts
         Task<IEnumerable<OfficeDto>> GetByCompanyAsync(int companyId);
 
         Task DeleteAsync(OfficeDto dto);
+
+        Task<StringBuilder> ExportOffices();
     }
 }

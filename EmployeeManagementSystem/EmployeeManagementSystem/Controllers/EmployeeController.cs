@@ -53,46 +53,7 @@ namespace EmployeeManagementSystem.Controllers
         [Authorize]
         public async Task<FileResult> Export()
         {
-            var employees = await this.service.GetAllAsync();
-
-            List<EmployeeDto> list = employees.ToList();
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("First Name");
-            sb.Append("Last Name");
-            sb.Append("Experience Level");
-            sb.Append("Starting Date");
-            sb.Append("Vacation Days");
-            sb.Append("Salary");
-            sb.Append("Company");
-            sb.Append("Country");
-            sb.Append("City");
-            sb.Append("\r\n");
-
-            for (int i = 0; i < list.Count(); i++)
-            {
-                var firstName = list[i].FirstName;
-                var lastName = list[i].LastName;
-                var experience = ((ExperienceEmployeeType)list[i].ExperienceEmployeeId).ToString();
-                var startingDate = list[i].StartingDate.ToShortDateString().ToString();
-                var vacationDays = list[i].VacationDays.ToString();
-                var salary = list[i].Salary.ToString();
-                var companyNAme = list[i].CompanyName;
-                var locationCountry = list[i].CountryName;
-                var locationCity = list[i].CityName;
-
-                sb.Append(firstName + ',');
-                sb.Append(lastName + ',');
-                sb.Append(experience + ',');
-                sb.Append(startingDate + ',');
-                sb.Append(vacationDays + ',');
-                sb.Append(salary + ',');
-                sb.Append(companyNAme + ',');
-                sb.Append(locationCountry + ',');
-                sb.Append( locationCity);
-
-                sb.Append("\r\n");
-            }
+            var sb =await this.service.ExportEmployees();
 
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Grid.csv");
         }

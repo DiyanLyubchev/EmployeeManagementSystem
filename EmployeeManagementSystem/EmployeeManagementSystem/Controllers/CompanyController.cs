@@ -142,33 +142,7 @@ namespace EmployeeManagementSystem.Controllers
         [Authorize]
         public async Task<FileResult> Export()
         {
-            var company = await this.service.GetAllAsync();
-
-            List<CompanyDto> list = company.ToList();
-
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("Company Name");
-            sb.Append("Creation Date");
-            sb.Append("Count Employees");
-            sb.Append("Count offices");
-            sb.Append("\r\n");
-
-            for (int i = 0; i < list.Count(); i++)
-            {
-                var name = list[i].Name;
-                var creationDate = list[i].CreationDate.ToShortDateString();
-                var employees = list[i].CountEmployees.ToString();
-                var offices = list[i].CountOffices.ToString();
-
-                sb.Append(name + ',');
-                sb.Append(creationDate + ',');
-                sb.Append(employees + ',');
-                sb.Append(offices + ',');
-
-                sb.Append("\r\n");
-
-            }
+            var sb = await this.service.ExportCompany();
 
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Grid.csv");
         }
