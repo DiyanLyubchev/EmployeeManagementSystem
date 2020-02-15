@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystemDataService.Contracts;
@@ -144,7 +142,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             var sb = await this.service.ExportCompany();
 
-            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Grid.csv");
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Companies.csv");
         }
     }
 }

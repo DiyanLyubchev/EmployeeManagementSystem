@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagementSystem.Models;
-using EmployeeManagementSystemData.Common;
 using EmployeeManagementSystemDataService.Contracts;
 using EmployeeManagementSystemDataService.CustomException;
 using EmployeeManagementSystemDataService.Models;
@@ -53,11 +51,11 @@ namespace EmployeeManagementSystem.Controllers
         [Authorize]
         public async Task<FileResult> Export()
         {
-            var sb =await this.service.ExportEmployees();
+            var sb = await this.service.ExportEmployees();
 
-            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Grid.csv");
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Employees.csv");
         }
-        
+
 
         [HttpGet]
         [Authorize]
