@@ -1,4 +1,4 @@
-﻿//search company
+﻿//search company by name
 
 $('#search-company-button').on('click', function () {
     const searchText = $('#search-company-text').val();
@@ -32,7 +32,7 @@ $('#search-company-button').on('click', function () {
 }); 
 
 
-//search office by city
+//search office by company
 
 $('#search-office-button').on('click', function () {
     const searchText = $('#search-office-text').val();
@@ -64,7 +64,7 @@ $('#search-office-button').on('click', function () {
     });
 });
 
-//search employee
+//search employee by firstname
 
 $('#search-employee-button').on('click', function () {
     const searchText = $('#search-employee-text').val();
