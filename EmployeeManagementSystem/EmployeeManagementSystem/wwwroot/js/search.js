@@ -1,7 +1,7 @@
 ﻿//search company by name
 
 $('#search-company-button').on('click', function () {
-    const searchText = $('#search-company-text').val();
+    const searchText = $('#search-text').val();
 
     $.ajax({
         url: '/Search/SearchCompany?searchData=' + searchText,
@@ -14,7 +14,7 @@ $('#search-company-button').on('click', function () {
             const companyContainer = $('#showitems');
 
             const tableStart =
-                `<table class="table table-bordered" id="info-table"><tr><th scope="col">Name</th><th scope="col">Creation Date</th><th scope="col">Offices</th><th scope="col">Employees</th><th></th></tr>`;
+                `<table class="table table-bordered" id="info-table"><tr><th scope="col">Name</th><th scope="col">Creation Date</th><th scope="col">Offices</th><th scope="col">Employees</th></tr>`;
             const tableEnd = `</table>`;
 
             if (serverData !== null) {
@@ -35,7 +35,7 @@ $('#search-company-button').on('click', function () {
 //search office by company
 
 $('#search-office-button').on('click', function () {
-    const searchText = $('#search-office-text').val();
+    const searchText = $('#search-text').val();
 
     $.ajax({
         url: '/Search/SearchOffice?searchData=' + searchText,
@@ -47,7 +47,7 @@ $('#search-office-button').on('click', function () {
             const officeContainer = $('#showitems');
 
             const tableStart =
-                `<table class="table table-bordered" id="info-table"><tr><th scope="col">Company</th><th scope="col">Country</th><th scope="col">City</th><th scope="col">Street</th><th></th></tr>`;
+                `<table class="table table-bordered" id="info-table"><tr><th scope="col">Company</th><th scope="col">Country</th><th scope="col">City</th><th scope="col">Street</th></tr>`;
             const tableEnd = `</table>`;
 
             if (serverData !== null) {
@@ -67,7 +67,7 @@ $('#search-office-button').on('click', function () {
 //search employee by firstname
 
 $('#search-employee-button').on('click', function () {
-    const searchText = $('#search-employee-text').val();
+    const searchText = $('#search-text').val();
     $.ajax({
         url: '/Search/SearchEmployee?searchData=' + searchText,
         type: 'GET',
@@ -78,7 +78,7 @@ $('#search-employee-button').on('click', function () {
             const employeeContainer = $('#showitems');
 
             const tableStart =
-                `<table class="table table-bordered" id="info-table"><tr><th scope="col">First Name</th><th scope="col">Last Name</th><th scope="col">Experience level</th><th scope="col">Starting date</th><th scope="col">Vacation days</th><th scope="col">Salary</th><th scope="col">Company</th><th scope="col">Location</th><th></th></tr>`;
+                `<table class="table table-bordered" id="info-table"><tr><th scope="col">First Name</th><th scope="col">Last Name</th><th scope="col">Experience level</th><th scope="col">Starting date</th><th scope="col">Vacation days</th><th scope="col">Salary</th><th scope="col">Company</th><th scope="col">Location</th></tr>`;
             const tableEnd = `</table>`;
 
             if (serverData !== null) {

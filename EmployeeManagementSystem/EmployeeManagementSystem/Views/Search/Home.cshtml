@@ -1,53 +1,23 @@
 ﻿@model CompanyDto
+
+<link href="~/css/site.css" rel="stylesheet" />
 <body>
     <div id="showitems" style=" width: 100%;">
-        <div class="searchcompany">
-            <input type="text" name="name" value="" id="search-company-text" class="form-control" placeholder="Search company" />
-            <br />
-            <button id="search-company-button" type="submit" class="btn alert-success">Search</button>
-        </div>
-
-        <div class="searchemployee">
-            <input type="text" name="name" value="" id="search-employee-text" class="form-control" placeholder="Search Employee" />
-            <br />
-            <button id="search-employee-button" type="submit" class="btn alert-success">Search</button>
-        </div>
-
-        <div class="searchoffice">
-            <input type="text" name="name" value="" id="search-office-text" class="form-control" placeholder="Search Office" />
-            <br />
-            <button id="search-office-button" type="submit" class="btn alert-success">Search</button>
+        <div class="searchcompany" style="float: right">
+            <input type="text" name="name" value="" id="search-text" class="form-control" placeholder="Search" />
+            <form>
+                <label><input type="checkbox" id="search-company-button" value="Company"> <span>Company</span></label>
+                <br />
+                <label><input  type="checkbox" id="search-office-button" value="Office"> <span>Office</span></label>
+                <br />
+                <label><input  type="checkbox" id="search-employee-button" value="Employee"> <span>Employee</span></label>
+            </form>
         </div>
     </div>
 
 </body>
 
-<div id="content">
-</div>
 
-@section Scripts{
-    <script>
-        function search() {
-            $.ajax({
-                url: '/Company/Index',
-                type: 'GET',
-                cache: false,
-                success: function (result) {
-                    $('#content').html(result);
-                }
-            });
-            return false;
-        }
-        function gettoken()
-        {
-            var token = '@Html.AntiForgeryToken()';
-            token = $(token).val();
-            return token;
-        }
-        $(document).on("click", "#detail-company-button", search);
-        $(document).on("click", "#contentPager a", search);
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
-}
+
 
 
