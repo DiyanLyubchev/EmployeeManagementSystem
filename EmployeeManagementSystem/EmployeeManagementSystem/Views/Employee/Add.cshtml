@@ -35,29 +35,25 @@
             <label>Choose Experience:</label>
             <div class="select">
                 <select required asp-for="ExperienceEmployee">
-                    <option value="">None</option>
+                    <option value="">Experience level</option>
                     <option value="1">Junior</option>
                     <option value="2">Middle</option>
                     <option value="3">Senior</option>
                 </select>
             </div>
             <br />
-            <label>Choose Company:</label>
             <div class="select">
                 <select required asp-for="CompanyId"
                         asp-items="@(new SelectList(Model.AllCompanies,"Id","Name"))"
                         onchange="populateOffices(event.srcElement.value, 'OfficeId')">
-                    <option value="">None</option>
-                    <option>Select Company</option>
+                    <option value="">Select Company</option>
                 </select>
             </div>
             <br />
-            <label>Choose Office:</label>
             <div class="select">
                 <select required asp-for="OfficeId"
                         asp-items="@(new SelectList(Model.AllOfficies,"Id","Street"))">
-                    <option value="">None</option>
-                    <option>Select Office</option>
+                    <option value="">Select Office</option>
                 </select>
             </div>
 
