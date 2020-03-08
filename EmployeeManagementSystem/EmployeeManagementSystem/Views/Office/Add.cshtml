@@ -24,24 +24,30 @@
                 </div>
             </div>
             <br />
+            <label>Choose Company:</label>
             <div class="select">
-                <select asp-for="CompanyId"
+                <select required asp-for="CompanyId"
                         asp-items="@(new SelectList(Model.AllCompanies,"Id","Name"))">
+                    <option value="">None</option>
                     <option>Select Company</option>
                 </select>
             </div>
             <br />
+            <label>Choose Country:</label>
             <div class="select">
-                <select asp-for="CountryId"
+                <select required asp-for="CountryId"
                         asp-items="@(new SelectList(Model.AllCountries,"Id","Name"))"
                         onchange="populateCities(event.srcElement.value, 'CityId')">
+                    <option value="">None</option>
                     <option>Select Country</option>
                 </select>
             </div>
             <br />
+            <label>Choose City:</label>
             <div class="select">
-                <select asp-for="CityId"
+                <select required asp-for="CityId"
                         asp-items="@(new SelectList(Model.CitiesByCountry,"Id","Name"))">
+                    <option value="">None</option>
                     <option>Select City</option>
                 </select>
             </div>
